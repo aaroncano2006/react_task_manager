@@ -1,0 +1,9 @@
+thead {
+    text-align: center;
+}
+
+th {
+    background-color: rgb(229, 236, 236);
+    padding: 20px;
+    width: fit-content;
+}
