@@ -2,7 +2,41 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Button from "./components/Button";
+import Link from "./components/Link";
 import Input from "./components/Input";
+import Select from "./components/Select";
+import Textarea from "./components/Textarea";
+
+const faker = [
+  {
+    id: 1,
+    nom: "Estudiar React",
+    categoria: "Estudis",
+    dueDate: "2025-12-20",
+    prioritat: "Alta",
+    important: true,
+    descripcio: "Repasar components, props i hooks",
+  },
+  {
+    id: 2,
+    nom: "Fer pràctica Laravel",
+    categoria: "DAW",
+    dueDate: "2025-12-22",
+    prioritat: "Mitjana",
+    important: false,
+    descripcio: "CRUD amb relacions many-to-many",
+  },
+  {
+    id: 3,
+    nom: "Netejar l'habitació",
+    categoria: "Personal",
+    dueDate: "2025-12-18",
+    prioritat: "Baixa",
+    important: false,
+    descripcio: "Ordenar escriptori i prestatgeries",
+  },
+];
+
 
 function App() {
   return (
@@ -13,16 +47,16 @@ function App() {
         </div>
 
         <div className="row-3 mb-4">
-          <Button bootstrap="btn btn-primary">
+          <Link href="views/form.html" bootstrap="btn btn-primary">
             <i className="fa-solid fa-circle-plus"></i> Crear tasca
-          </Button>
+          </Link>
         </div>
 
         <div className="row-3">
           <table className="table-bordered">
             <thead>
               <tr>
-                <th></th>
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Categoria</th>
                 <th>Due date</th>
@@ -33,8 +67,29 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              <tr></tr>
-            </tbody>
+  {faker.map((tasca) => (
+    <tr key={tasca.id}>
+      <td>
+        <input type="checkbox" />
+      </td>
+      <td>{tasca.nom}</td>
+      <td>{tasca.categoria}</td>
+      <td>{tasca.dueDate}</td>
+      <td>{tasca.prioritat}</td>
+      <td>{tasca.important ? "Sí" : "No"}</td>
+      <td>{tasca.descripcio}</td>
+      <td>
+        <Button bootstrap="btn btn-sm btn-warning me-2">
+          <i className="fa-solid fa-pen"></i>
+        </Button>
+        <Button bootstrap="btn btn-sm btn-danger">
+          <i className="fa-solid fa-trash"></i>
+        </Button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
           </table>
         </div>
       </div>
