@@ -72,13 +72,13 @@ function App() {
       <td>
         <input type="checkbox" />
       </td>
-      <td>{tasca.nom}</td>
-      <td>{tasca.categoria}</td>
-      <td>{tasca.dueDate}</td>
-      <td>{tasca.prioritat}</td>
-      <td>{tasca.important ? "Sí" : "No"}</td>
-      <td>{tasca.descripcio}</td>
-      <td>
+      <td className="p-4">{tasca.nom}</td>
+      <td className="p-4">{tasca.categoria}</td>
+      <td className="p-4">{tasca.dueDate}</td>
+      <td className="p-4">{tasca.prioritat}</td>
+      <td className="p-4">{tasca.important ? "Sí" : "No"}</td>
+      <td className="p-4">{tasca.descripcio}</td>
+      <td className="p-4">
         <Button bootstrap="btn btn-sm btn-warning me-2">
           <i className="fa-solid fa-pen"></i>
         </Button>
