@@ -83,3 +83,23 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - **Zod schema** per a les tasques.
 
 ** A partir dels següents dies es realitzaran diferents branques pel desenvolupament, d'aquesta forma podrem controlar millor quins canvis es realitzen en un dia determinat i tindrem menys risc de trencar el funcionament de la branca **`main`**. Una vegada acabi el dia i es comprovi que els canvis funcionen, realitzarem **`Pull Request`** i tindrem la branca **`main`** actualitzada **
+
+`16/12/2025 (dev16122025)`: 
+
+- Eliminat component **Link**.
+
+- S'ha creat un fitxer anomenat **convert.html**, aquest fitxer només serveix per escriure els components en HTML i després traduïrlos a JSX, com que no té un impacte més enllà d'escriure només HTML, no serà rastrejat. S'ha afegit a **.gitignore**.
+
+- S'ha afegit `taskPriority` al **Zod Schema `task.js`**. Aquest error era crític ja que si no existeix a zod quan es crei una nova tasca no tindrà en compte la prioritat i hauran errors en les dades.
+
+- Afegit component **RadioGroup**.
+
+- **Canvis en l'estructura del projecte**: Per simplificar l'aplicació, el formulari estarà a la mateixa pàgina que el llistat.
+
+- Afegit component **Card**.
+
+- Modificat l’ús d’enum al Zod Schema per adaptar-lo a la sintaxi correcta de Zod.
+
+- Integració de react-hook-form amb FormProvider i useFormContext per millorar l’arquitectura del formulari.
+
+- Refactorització del component Input perquè sigui reutilitzable i estigui connectat al context del formulari i sigui compatible amb la validació per Zod.

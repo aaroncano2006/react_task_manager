@@ -2,10 +2,12 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Button from "./components/Button";
-import Link from "./components/Link";
-import Input from "./components/Input";
 import Select from "./components/Select";
 import Textarea from "./components/Textarea";
+import RadioGroup from "./components/RadioGroup";
+import Card from "./components/Card";
+import Form from "./components/Form";
+import Input from "./components/Input";
 
 const faker = [
   {
@@ -37,7 +39,6 @@ const faker = [
   },
 ];
 
-
 function App() {
   return (
     <>
@@ -46,10 +47,31 @@ function App() {
           <h1>Task manager</h1>
         </div>
 
+        <Card headerText="Crear tasca">
+          <Form>
+            <div className="row mb-4">
+              <div className="col-3">
+                <Input
+                  type="text"
+                  name="taskName"
+                  id="taskName"
+                  bootstrap="form-control"
+                >
+                  Nom de la tasca
+                </Input>
+              </div>
+            </div>
+
+            <Button bootstrap="btn btn-primary" type="submit">
+              Afegir tasca
+            </Button>
+          </Form>
+        </Card>
+
         <div className="row-3 mb-4">
-          <Link href="views/form.html" bootstrap="btn btn-primary">
+          <Button bootstrap="btn btn-primary">
             <i className="fa-solid fa-circle-plus"></i> Crear tasca
-          </Link>
+          </Button>
         </div>
 
         <div className="row-3">
@@ -67,32 +89,59 @@ function App() {
               </tr>
             </thead>
             <tbody>
-  {faker.map((tasca) => (
-    <tr key={tasca.id}>
-      <td>
-        <input type="checkbox" />
-      </td>
-      <td className="p-4">{tasca.nom}</td>
-      <td className="p-4">{tasca.categoria}</td>
-      <td className="p-4">{tasca.dueDate}</td>
-      <td className="p-4">{tasca.prioritat}</td>
-      <td className="p-4">{tasca.important ? "Sí" : "No"}</td>
-      <td className="p-4">{tasca.descripcio}</td>
-      <td className="p-4">
-        <Button bootstrap="btn btn-sm btn-warning me-2">
-          <i className="fa-solid fa-pen"></i>
-        </Button>
-        <Button bootstrap="btn btn-sm btn-danger">
-          <i className="fa-solid fa-trash"></i>
-        </Button>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+              {faker.map((tasca) => (
+                <tr key={tasca.id}>
+                  <td>
+                    <input type="checkbox" />
+                  </td>
+                  <td className="p-4">{tasca.nom}</td>
+                  <td className="p-4">{tasca.categoria}</td>
+                  <td className="p-4">{tasca.dueDate}</td>
+                  <td className="p-4">{tasca.prioritat}</td>
+                  <td className="p-4">{tasca.important ? "Sí" : "No"}</td>
+                  <td className="p-4">{tasca.descripcio}</td>
+                  <td className="p-4">
+                    <Button bootstrap="btn btn-sm btn-warning me-2">
+                      <i className="fa-solid fa-pen"></i>
+                    </Button>
+                    <Button bootstrap="btn btn-sm btn-danger">
+                      <i className="fa-solid fa-trash"></i>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
+
+      {/* <RadioGroup>
+        <div>
+          <input type="radio" name="taskPriority" id="baixa" defaultValue="baixa" />
+          <label for="baixa" className="ms-2 form-label">
+            Baixa
+          </label>
+        </div>
+
+        <div>
+          <input
+            type="radio"
+            name="taskPriority"
+            id="mitjana"
+            defaultValue="mitjana"
+          />
+          <label for="mitjana" className="ms-2 form-label">
+            Mitjana
+          </label>
+        </div>
+
+        <div>
+          <input type="radio" name="taskPriority" id="alta" defaultValue="alta" />
+          <label for="alta" className="ms-2 form-label">
+            Alta
+          </label>
+        </div>
+      </RadioGroup> */}
     </>
   );
 }

@@ -6,11 +6,11 @@ export const taskSchema = z.object({
     .min(5, { message: "El nom és obligatori" })
     .min(5, { message: "Longitud mínima de 5 caràcters" }),
 
-  taskCategory: z
-    .string()
-    .enum(["Personal", "Casa", "Feina", "Estudis"], {
+  taskCategory: z.enum(["Personal", "Casa", "Feina", "Estudis"], {
+    errorMap: () => ({
       message: "El valor ha de pertànyer a una de les categories predefinides",
     }),
+  }),
 
   taskDueDate: z.coerce
     .date()
@@ -30,6 +30,12 @@ export const taskSchema = z.object({
       const any = data.getFullYear();
       return `${dia}/${mes}/${any}`;
     }),
+
+  taskPriority: z.enum(["baixa", "mitja", "alta"], {
+    errorMap: () => ({
+      message: "El valor ha de pertànyer a una de les prioritats predefinides",
+    }),
+  }),
 
   taskImportant: z.boolean().optional(),
 
