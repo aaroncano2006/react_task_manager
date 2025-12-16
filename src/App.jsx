@@ -2,10 +2,12 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Button from "./components/Button";
-import Input from "./components/Input";
 import Select from "./components/Select";
 import Textarea from "./components/Textarea";
 import RadioGroup from "./components/RadioGroup";
+import Card from "./components/Card";
+import Form from "./components/Form";
+import Input from "./components/Input";
 
 const faker = [
   {
@@ -44,6 +46,27 @@ function App() {
         <div className="row mb-4">
           <h1>Task manager</h1>
         </div>
+
+        <Card headerText="Crear tasca">
+          <Form>
+            <div className="row mb-4">
+              <div className="col-3">
+                <Input
+                  type="text"
+                  name="taskName"
+                  id="taskName"
+                  bootstrap="form-control"
+                >
+                  Nom de la tasca
+                </Input>
+              </div>
+            </div>
+
+            <Button bootstrap="btn btn-primary" type="submit">
+              Afegir tasca
+            </Button>
+          </Form>
+        </Card>
 
         <div className="row-3 mb-4">
           <Button bootstrap="btn btn-primary">
