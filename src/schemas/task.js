@@ -30,7 +30,13 @@ export const taskSchema = z.object({
       const any = data.getFullYear();
       return `${dia}/${mes}/${any}`;
     }),
-
+  
+  taskPriority: z
+    .string()
+    .enum(["baixa", "mitja", "alta"], {
+      message: "El valor ha de pertànyer a una de les prioritats predefinides"
+    }),
+  
   taskImportant: z.boolean().optional(),
 
   taskDescription: z
