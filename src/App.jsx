@@ -2,7 +2,6 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Button from "./components/Button";
-import Link from "./components/Link";
 import Input from "./components/Input";
 import Select from "./components/Select";
 import Textarea from "./components/Textarea";
@@ -47,9 +46,9 @@ function App() {
         </div>
 
         <div className="row-3 mb-4">
-          <Link href="views/form.html" bootstrap="btn btn-primary">
+          <Button bootstrap="btn btn-primary">
             <i className="fa-solid fa-circle-plus"></i> Crear tasca
-          </Link>
+          </Button>
         </div>
 
         <div className="row-3">
