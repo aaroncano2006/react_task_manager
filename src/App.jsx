@@ -5,6 +5,7 @@ import Button from "./components/Button";
 import Input from "./components/Input";
 import Select from "./components/Select";
 import Textarea from "./components/Textarea";
+import RadioGroup from "./components/RadioGroup";
 
 const faker = [
   {
@@ -36,7 +37,6 @@ const faker = [
   },
 ];
 
-
 function App() {
   return (
     <>
@@ -66,32 +66,59 @@ function App() {
               </tr>
             </thead>
             <tbody>
-  {faker.map((tasca) => (
-    <tr key={tasca.id}>
-      <td>
-        <input type="checkbox" />
-      </td>
-      <td className="p-4">{tasca.nom}</td>
-      <td className="p-4">{tasca.categoria}</td>
-      <td className="p-4">{tasca.dueDate}</td>
-      <td className="p-4">{tasca.prioritat}</td>
-      <td className="p-4">{tasca.important ? "Sí" : "No"}</td>
-      <td className="p-4">{tasca.descripcio}</td>
-      <td className="p-4">
-        <Button bootstrap="btn btn-sm btn-warning me-2">
-          <i className="fa-solid fa-pen"></i>
-        </Button>
-        <Button bootstrap="btn btn-sm btn-danger">
-          <i className="fa-solid fa-trash"></i>
-        </Button>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+              {faker.map((tasca) => (
+                <tr key={tasca.id}>
+                  <td>
+                    <input type="checkbox" />
+                  </td>
+                  <td className="p-4">{tasca.nom}</td>
+                  <td className="p-4">{tasca.categoria}</td>
+                  <td className="p-4">{tasca.dueDate}</td>
+                  <td className="p-4">{tasca.prioritat}</td>
+                  <td className="p-4">{tasca.important ? "Sí" : "No"}</td>
+                  <td className="p-4">{tasca.descripcio}</td>
+                  <td className="p-4">
+                    <Button bootstrap="btn btn-sm btn-warning me-2">
+                      <i className="fa-solid fa-pen"></i>
+                    </Button>
+                    <Button bootstrap="btn btn-sm btn-danger">
+                      <i className="fa-solid fa-trash"></i>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
+
+      {/* <RadioGroup>
+        <div>
+          <input type="radio" name="taskPriority" id="baixa" defaultValue="baixa" />
+          <label for="baixa" className="ms-2 form-label">
+            Baixa
+          </label>
+        </div>
+
+        <div>
+          <input
+            type="radio"
+            name="taskPriority"
+            id="mitjana"
+            defaultValue="mitjana"
+          />
+          <label for="mitjana" className="ms-2 form-label">
+            Mitjana
+          </label>
+        </div>
+
+        <div>
+          <input type="radio" name="taskPriority" id="alta" defaultValue="alta" />
+          <label for="alta" className="ms-2 form-label">
+            Alta
+          </label>
+        </div>
+      </RadioGroup> */}
     </>
   );
 }
