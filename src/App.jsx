@@ -89,6 +89,19 @@ function App() {
               </div>
             </div>
 
+            <div className="row mb-3">
+              <div className="col-3">
+                <Input
+                  bootstrap="form-control"
+                  type="date"
+                  name="taskDueDate"
+                  id="taskDueDate"
+                >
+                  Data límit
+                </Input>
+              </div>
+            </div>
+
             <Button bootstrap="btn btn-primary" type="submit">
               Afegir tasca
             </Button>
