@@ -7,7 +7,7 @@ function Input({ bootstrap = null, type, name, id, children }) {
   } = useFormContext();
 
   return (
-    <>
+    <div className="d-flex flex-column">
       <label className="form-label" htmlFor={id}>
         {children}
       </label>
@@ -15,7 +15,7 @@ function Input({ bootstrap = null, type, name, id, children }) {
       <input className={bootstrap} type={type} id={id} {...register(name)} />
 
       {errors[name] && <p className="text-danger">{errors[name].message}</p>}
-    </>
+    </div>
   );
 }
 
