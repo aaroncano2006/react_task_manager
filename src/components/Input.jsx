@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 
-function Input({ bootstrap = null, type, name, id, children }) {
+function Input({ bootstrap = null, type, name, id, children, defaultValue = null }) {
   const {
     register,
     formState: { errors },
@@ -12,7 +12,7 @@ function Input({ bootstrap = null, type, name, id, children }) {
         {children}
       </label>
 
-      <input className={bootstrap} type={type} id={id} {...register(name)} />
+      <input className={bootstrap} type={type} id={id} defaultValue={defaultValue} {...register(name)} />
 
       {errors[name] && <p className="text-danger">{errors[name].message}</p>}
     </div>
