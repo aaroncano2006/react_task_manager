@@ -103,3 +103,27 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - Integració de react-hook-form amb FormProvider i useFormContext per millorar l’arquitectura del formulari.
 
 - Refactorització del component Input perquè sigui reutilitzable i estigui connectat al context del formulari i sigui compatible amb la validació per Zod.
+
+`17/12/2025 (dev17122025)`:
+
+- Eliminat CDN de Font Awesome a `index.html`. S'ha instal·lat via `npm`.
+
+- Component **`Select.jsx`** modificat per compatibilitzar-ho amb el formulari.
+
+- Constant `categories` afegida i **`taskCategory`** implementada al formulari amb les seves validacions de Zod Schema.
+
+- Ajustos de classes Bootstrap i CSS.
+
+- Camp **És important?** eliminat del llistat. Serà substituit amb una icona Font Awesome al costat del nom.
+
+- **`taskDueDate`** implementada al formulari amb les seves validacions.
+
+- Zod Schema `task.js` corregit per a validar correctament **`taskDueDate`**
+
+- Atribut `defaultValue` afegit al component **`Input.jsx`** per fer-ho compatible amb el funcionament del component **`RadioGroup.jsx`**.
+
+- Component **`RadioButton.jsx`** creat. Es manté la propietat `defaultValue` a **`Input.jsx`** per compatibilitat en cas de ser necessaria per a futurs canvis en l'apliació.
+
+- Constants `prioritatsBase` (identificador únic i nom de la prioritat) i `prioritats` (prioritatBase amb les seves propietats + identificadors per a HTML i valors del RadioButton per coincidir amb el Zod Schema) creades.
+
+- Atribut `key` afegit als componentes **`RadioButton`** de **`App.jsx`** per evitar problemes de duplicitat i errors en consola.

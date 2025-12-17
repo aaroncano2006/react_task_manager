@@ -1,8 +1,21 @@
-function Select({bootstrap = null, name, id, children}) {
+import { useFormContext } from "react-hook-form";
+
+function Select({bootstrap = null, name, id, children, textLabel}) {
+
+    const {
+        register,
+        formState: {errors}
+    } = useFormContext();
+
     return (
-        <select bootstrap={bootstrap} name={name} id={id}>
-            {children}
-        </select>
+        <div className="d-flex flex-column">
+            <label className="form-label" htmlFor={name}>{textLabel}</label>
+
+            <select bootstrap={bootstrap} name={name} id={id} {...register}>
+                {children}
+            </select>
+            {errors[name] && <p className="text-danger">{errors[name].message}</p>}
+        </div>
     );
 }
 
