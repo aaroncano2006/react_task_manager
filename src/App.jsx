@@ -125,6 +125,7 @@ function App() {
                         name="taskPriority"
                         id={p.htmlId}
                         defaultValue={p.value}
+                        key={p.id}
                       >
                         {p.nom}
                       </RadioButton>
