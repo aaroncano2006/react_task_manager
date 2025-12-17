@@ -8,6 +8,7 @@ import RadioGroup from "./components/RadioGroup";
 import Card from "./components/Card";
 import Form from "./components/Form";
 import Input from "./components/Input";
+import RadioButton from "./components/RadioButton";
 
 const faker = [
   {
@@ -45,6 +46,19 @@ const categories = [
   { id: 3, nom: "Feina" },
   { id: 4, nom: "Estudis" },
 ];
+
+const prioritatsBase = [
+  { id: 1, nom: "Baixa" },
+  { id: 2, nom: "Mitjana" },
+  { id: 3, nom: "Alta" },
+];
+
+const prioritats = prioritatsBase.map(p => ({
+  ...p,
+  htmlId: `taskPriority-${p.nom.toLowerCase()}`,
+  value: p.nom.toLowerCase(),
+}));
+
 
 function App() {
   return (
@@ -102,6 +116,48 @@ function App() {
               </div>
             </div>
 
+            <div className="row mb-3">
+              <div className="col-3">
+                <RadioGroup>
+                  {prioritats.map((p) => {
+                    return (
+                      <RadioButton
+                        name="taskPriority"
+                        id={p.htmlId}
+                        defaultValue={p.value}
+                      >
+                        {p.nom}
+                      </RadioButton>
+                    );
+                  })}
+                  {/* <RadioButton
+                    type="radio"
+                    name="taskPriority"
+                    id="taskPriorityBaixa"
+                    defaultValue="baixa"
+                  >
+                    Baixa
+                  </RadioButton>
+                  <RadioButton
+                    type="radio"
+                    name="taskPriority"
+                    id="taskPriorityMitjana"
+                    defaultValue="mitjana"
+                  >
+                    Mitjana
+                  </RadioButton>
+                  <RadioButton
+                    type="radio"
+                    name="taskPriority"
+                    id="taskPriorityAlta"
+                    defaultValue="alta"
+                  >
+                    Alta
+                  </RadioButton> */}
+                </RadioGroup>
+              </div>
+            </div>
+
             <Button bootstrap="btn btn-primary" type="submit">
               Afegir tasca
             </Button>
@@ -154,34 +210,6 @@ function App() {
           </div>
         </div>
       </div>
-
-      {/* <RadioGroup>
-        <div>
-          <input type="radio" name="taskPriority" id="baixa" defaultValue="baixa" />
-          <label for="baixa" className="ms-2 form-label">
-            Baixa
-          </label>
-        </div>
-
-        <div>
-          <input
-            type="radio"
-            name="taskPriority"
-            id="mitjana"
-            defaultValue="mitjana"
-          />
-          <label for="mitjana" className="ms-2 form-label">
-            Mitjana
-          </label>
-        </div>
-
-        <div>
-          <input type="radio" name="taskPriority" id="alta" defaultValue="alta" />
-          <label for="alta" className="ms-2 form-label">
-            Alta
-          </label>
-        </div>
-      </RadioGroup> */}
     </>
   );
 }
