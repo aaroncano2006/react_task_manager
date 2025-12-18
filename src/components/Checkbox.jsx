@@ -8,11 +8,13 @@ function Checkbox({bootstrap = null, name, id, children, defaultValue = null}) {
 
     return (
         <div className="d-flex">
-            <input className={bootstrap} type="checkbox" name={name} id={id} defaultValue={defaultValue}/>
+            <input className={bootstrap} type="checkbox" name={name} id={id} defaultValue={defaultValue} {...register}/>
 
             <label className="ms-2 me-2" htmlFor={id}>
                 {children}
             </label>
+
+            {errors[name] && <p className="text-danger">{errors[name].message}</p>}
         </div>
         
     );
