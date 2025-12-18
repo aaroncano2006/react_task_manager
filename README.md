@@ -127,3 +127,25 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - Constants `prioritatsBase` (identificador únic i nom de la prioritat) i `prioritats` (prioritatBase amb les seves propietats + identificadors per a HTML i valors del RadioButton per coincidir amb el Zod Schema) creades.
 
 - Atribut `key` afegit als componentes **`RadioButton`** de **`App.jsx`** per evitar problemes de duplicitat i errors en consola.
+
+`18/12/2025 (dev18122025)`:
+
+- S'ha modificat la maquetació del component **`RadioButton.jsx`**
+
+- Component **`Checkbox.jsx`** creat.
+
+- Afegit `type="checkbox"` a **`Checkbox.jsx`** i camp **`taskImportant`** afeigt al formulari.
+
+- Component **`Textarea.jsx`** modificat per ser compatible amb el formulari.
+
+- Afegit camp **`taskDescription`** al formulari.
+
+- S'ha corregit una propietat erronea al component **`Select.jsx`** que no permetia agafar les classes Bootstrap.
+
+- S'han afegit marges amb Bootsrap a les labels de **`RadioButton.jsx`** i **`Checkbox.jsx`**.
+
+- S'ha corregit el component **`Checkbox.jsx`** ja que no tenia el codi per estar dins del context del formulari.
+
+- S'ha modificat la maquetació de les columnes del formulari amb la classe Bootstrap `col-10`.
+
+- Validacions corregides i funcionals amb missatges personalitzats.

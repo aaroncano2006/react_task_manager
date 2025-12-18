@@ -13,7 +13,9 @@ function Textarea ({bootstrap = null, name, id, cols = null, rows = null, childr
                 {children}
             </label>
 
-            <textarea className={bootstrap} name={name} id={id} cols={cols} rows={rows}></textarea>
+            <textarea className={bootstrap} name={name} id={id} cols={cols} rows={rows} {...register(name)}></textarea>
+
+            {errors[name] && <p className="text-danger">{errors[name].message}</p>}
         </div>
 
     );

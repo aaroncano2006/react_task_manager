@@ -91,10 +91,10 @@ function App() {
                   id="taskCategory"
                   textLabel="Categoria"
                 >
-                  <option defaultValue="0">-- Selecciona una categoria --</option>
+                  <option value="">-- Selecciona una categoria --</option>
                   {categories.map((cat) => {
                     return (
-                      <option key={cat.id} defaultValue={cat.nom}>
+                      <option key={cat.id} value={cat.nom}>
                         {cat.nom}
                       </option>
                     );
