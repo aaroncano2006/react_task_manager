@@ -71,7 +71,7 @@ function App() {
         <Card headerText="Crear tasca">
           <Form>
             <div className="row mb-3">
-              <div className="col">
+              <div className="col-10">
                 <Input
                   bootstrap="form-control"
                   type="text"
@@ -84,7 +84,7 @@ function App() {
             </div>
 
             <div className="row mb-3">
-              <div className="col">
+              <div className="col-10">
                 <Select
                   bootstrap="form-select mt-2"
                   name="taskCategory"
@@ -104,7 +104,7 @@ function App() {
             </div>
 
             <div className="row mb-3">
-              <div className="col">
+              <div className="col-10">
                 <Input
                   bootstrap="form-control"
                   type="date"
@@ -117,7 +117,7 @@ function App() {
             </div>
 
             <div className="row mb-3">
-              <div className="col">
+              <div className="col-10">
                 <RadioGroup>
                   {prioritats.map((p) => {
                     return (
@@ -136,7 +136,7 @@ function App() {
             </div>
 
             <div className="row mb-3">
-              <div className="col">
+              <div className="col-10">
                 <Checkbox name="taskImportant" id="taskImportant" defaultValue={true}>
                   Marca com a important
                 </Checkbox>
@@ -144,8 +144,8 @@ function App() {
             </div>
 
             <div className="row mb-3">
-              <div className="col">
-                <Textarea name="taskDescription" id="taskDescription" cols="1000" rows="5">
+              <div className="col-10">
+                <Textarea bootstrap="mb-2" name="taskDescription" id="taskDescription" cols="10" rows="5">
                   Descripció
                 </Textarea>
               </div>
