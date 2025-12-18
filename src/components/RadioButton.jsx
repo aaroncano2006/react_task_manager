@@ -11,7 +11,7 @@ function RadioButton({ bootstrap = null, name, id, children, defaultValue }) {
       
       <input className={bootstrap} type="radio" id={id} defaultValue={defaultValue} {...register(name)} />
 
-      <label className="ms-2" htmlFor={id}>
+      <label className="ms-2 me-2" htmlFor={id}>
         {children}
       </label>
 
