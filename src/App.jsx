@@ -1,14 +1,15 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
+import Card from "./components/Card";
+import Form from "./components/Form";
 import Button from "./components/Button";
 import Select from "./components/Select";
 import Textarea from "./components/Textarea";
 import RadioGroup from "./components/RadioGroup";
-import Card from "./components/Card";
-import Form from "./components/Form";
-import Input from "./components/Input";
 import RadioButton from "./components/RadioButton";
+import Input from "./components/Input";
+import Checkbox from "./components/Checkbox";
 
 const faker = [
   {
@@ -59,19 +60,18 @@ const prioritats = prioritatsBase.map(p => ({
   value: p.nom.toLowerCase(),
 }));
 
-
 function App() {
   return (
     <>
       <div className="container mt-5">
-        <div className="row mb-4">
+        <div className="row mb-3">
           <h1>Task manager</h1>
         </div>
 
         <Card headerText="Crear tasca">
           <Form>
             <div className="row mb-3">
-              <div className="col-3">
+              <div className="col-10">
                 <Input
                   bootstrap="form-control"
                   type="text"
@@ -84,14 +84,14 @@ function App() {
             </div>
 
             <div className="row mb-3">
-              <div className="col-3">
+              <div className="col-10">
                 <Select
                   bootstrap="form-select mt-2"
                   name="taskCategory"
                   id="taskCategory"
                   textLabel="Categoria"
                 >
-                  <option value="0">-- Selecciona una categoria --</option>
+                  <option value="">-- Selecciona una categoria --</option>
                   {categories.map((cat) => {
                     return (
                       <option key={cat.id} value={cat.nom}>
@@ -104,7 +104,7 @@ function App() {
             </div>
 
             <div className="row mb-3">
-              <div className="col-3">
+              <div className="col-10">
                 <Input
                   bootstrap="form-control"
                   type="date"
@@ -117,7 +117,7 @@ function App() {
             </div>
 
             <div className="row mb-3">
-              <div className="col-3">
+              <div className="col-10">
                 <RadioGroup>
                   {prioritats.map((p) => {
                     return (
@@ -131,31 +131,23 @@ function App() {
                       </RadioButton>
                     );
                   })}
-                  {/* <RadioButton
-                    type="radio"
-                    name="taskPriority"
-                    id="taskPriorityBaixa"
-                    defaultValue="baixa"
-                  >
-                    Baixa
-                  </RadioButton>
-                  <RadioButton
-                    type="radio"
-                    name="taskPriority"
-                    id="taskPriorityMitjana"
-                    defaultValue="mitjana"
-                  >
-                    Mitjana
-                  </RadioButton>
-                  <RadioButton
-                    type="radio"
-                    name="taskPriority"
-                    id="taskPriorityAlta"
-                    defaultValue="alta"
-                  >
-                    Alta
-                  </RadioButton> */}
                 </RadioGroup>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-10">
+                <Checkbox name="taskImportant" id="taskImportant" defaultValue={true}>
+                  Marca com a important
+                </Checkbox>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-10">
+                <Textarea bootstrap="mb-2" name="taskDescription" id="taskDescription" cols="10" rows="5">
+                  Descripció
+                </Textarea>
               </div>
             </div>
 
@@ -171,12 +163,12 @@ function App() {
           </Button>
         </div>
 
-        <div className="container" id="listContainer">
+        <div className="mb-4" id="listContainer">
           <div className="row-3">
             <table className="table-bordered">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th></th>
                   <th>Nom</th>
                   <th>Categoria</th>
                   <th>Due date</th>

@@ -3,14 +3,10 @@ import { z } from "zod";
 export const taskSchema = z.object({
   taskName: z.string().min(5, { message: "Longitud mínima de 5 caràcters" }),
 
-  taskCategory: z.enum(["Personal", "Casa", "Feina", "Estudis"], {
-    errorMap: () => ({
-      message: "El valor ha de pertànyer a una de les categories predefinides",
-    }),
-  }),
+  taskCategory: z.enum(["Personal", "Casa", "Feina", "Estudis"], { message: "Has de seleccionar una de les categories predefinides." }),
 
   taskDueDate: z.coerce
-    .date()
+    .date({ message: "S'espera data amb format DD/MM/YYYY." })
     .min(
       (() => {
         const avui = new Date(); // Agafa la data actual (hora inclosa).
@@ -31,11 +27,7 @@ export const taskSchema = z.object({
       return `${dia}/${mes}/${any}`;
     }),
 
-  taskPriority: z.enum(["baixa", "mitja", "alta"], {
-    errorMap: () => ({
-      message: "El valor ha de pertànyer a una de les prioritats predefinides",
-    }),
-  }),
+  taskPriority: z.enum(["baixa", "mitjana", "alta"], { message: "El valor ha de pertànyer a una de les prioritats predefinides" }),
 
   taskImportant: z.boolean().optional(),
 
