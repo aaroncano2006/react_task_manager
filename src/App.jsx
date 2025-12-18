@@ -9,6 +9,7 @@ import Card from "./components/Card";
 import Form from "./components/Form";
 import Input from "./components/Input";
 import RadioButton from "./components/RadioButton";
+import Checkbox from "./components/Checkbox";
 
 const faker = [
   {
@@ -131,31 +132,15 @@ function App() {
                       </RadioButton>
                     );
                   })}
-                  {/* <RadioButton
-                    type="radio"
-                    name="taskPriority"
-                    id="taskPriorityBaixa"
-                    defaultValue="baixa"
-                  >
-                    Baixa
-                  </RadioButton>
-                  <RadioButton
-                    type="radio"
-                    name="taskPriority"
-                    id="taskPriorityMitjana"
-                    defaultValue="mitjana"
-                  >
-                    Mitjana
-                  </RadioButton>
-                  <RadioButton
-                    type="radio"
-                    name="taskPriority"
-                    id="taskPriorityAlta"
-                    defaultValue="alta"
-                  >
-                    Alta
-                  </RadioButton> */}
                 </RadioGroup>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-3">
+                <Checkbox name="taskImportant" id="taskImportant" defaultValue="true">
+                  Marca com a important
+                </Checkbox>
               </div>
             </div>
 
@@ -171,7 +156,7 @@ function App() {
           </Button>
         </div>
 
-        <div className="container" id="listContainer">
+        <div className="mb-4" id="listContainer">
           <div className="row-3">
             <table className="table-bordered">
               <thead>

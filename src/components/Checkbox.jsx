@@ -8,7 +8,7 @@ function Checkbox({bootstrap = null, name, id, children, defaultValue = null}) {
 
     return (
         <div className="d-flex">
-            <input className={bootstrap} name={name} id={id} defaultValue={defaultValue}/>
+            <input className={bootstrap} type="checkbox" name={name} id={id} defaultValue={defaultValue}/>
 
             <label className="ms-2" htmlFor={id}>
                 {children}
