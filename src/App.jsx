@@ -128,7 +128,7 @@ function App() {
         </Card>
 
         <div className="row-3 mb-4" id="createButtonRow">
-          <Button bootstrap="btn btn-primary">
+          <Button bootstrap="btn btn-primary" type="button">
             <i className="fa-solid fa-circle-plus"></i> Crear tasca
           </Button>
         </div>

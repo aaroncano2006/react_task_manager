@@ -1,6 +1,6 @@
-function Button({bootstrap = null, children}) {
+function Button({bootstrap = null, type, children}) {
     return(
-        <button className={bootstrap}>{children}</button>
+        <button className={bootstrap} type={type}>{children}</button>
     );
 }
 
