@@ -11,36 +11,6 @@ import RadioButton from "./components/RadioButton";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 
-const faker = [
-  {
-    id: 1,
-    nom: "Estudiar React",
-    categoria: "Estudis",
-    dueDate: "2025-12-20",
-    prioritat: "Alta",
-    important: true,
-    descripcio: "Repasar components, props i hooks",
-  },
-  {
-    id: 2,
-    nom: "Fer pràctica Laravel",
-    categoria: "DAW",
-    dueDate: "2025-12-22",
-    prioritat: "Mitjana",
-    important: false,
-    descripcio: "CRUD amb relacions many-to-many",
-  },
-  {
-    id: 3,
-    nom: "Netejar l'habitació",
-    categoria: "Personal",
-    dueDate: "2025-12-18",
-    prioritat: "Baixa",
-    important: false,
-    descripcio: "Ordenar escriptori i prestatgeries",
-  },
-];
-
 const categories = [
   { id: 1, nom: "Personal" },
   { id: 2, nom: "Casa" },
@@ -158,7 +128,7 @@ function App() {
         </Card>
 
         <div className="row-3 mb-4" id="createButtonRow">
-          <Button bootstrap="btn btn-primary">
+          <Button bootstrap="btn btn-primary" type="button">
             <i className="fa-solid fa-circle-plus"></i> Crear tasca
           </Button>
         </div>
@@ -178,26 +148,7 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {faker.map((tasca) => (
-                  <tr key={tasca.id}>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
-                    <td className="p-4">{tasca.nom}</td>
-                    <td className="p-4">{tasca.categoria}</td>
-                    <td className="p-4">{tasca.dueDate}</td>
-                    <td className="p-4">{tasca.prioritat}</td>
-                    <td className="p-4">{tasca.descripcio}</td>
-                    <td className="p-4">
-                      <Button bootstrap="btn btn-sm btn-warning me-2">
-                        <i className="fa-solid fa-pen"></i>
-                      </Button>
-                      <Button bootstrap="btn btn-sm btn-danger">
-                        <i className="fa-solid fa-trash"></i>
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+                
               </tbody>
             </table>
           </div>
