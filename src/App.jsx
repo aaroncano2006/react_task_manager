@@ -11,36 +11,6 @@ import RadioButton from "./components/RadioButton";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 
-const faker = [
-  {
-    id: 1,
-    nom: "Estudiar React",
-    categoria: "Estudis",
-    dueDate: "2025-12-20",
-    prioritat: "Alta",
-    important: true,
-    descripcio: "Repasar components, props i hooks",
-  },
-  {
-    id: 2,
-    nom: "Fer pràctica Laravel",
-    categoria: "DAW",
-    dueDate: "2025-12-22",
-    prioritat: "Mitjana",
-    important: false,
-    descripcio: "CRUD amb relacions many-to-many",
-  },
-  {
-    id: 3,
-    nom: "Netejar l'habitació",
-    categoria: "Personal",
-    dueDate: "2025-12-18",
-    prioritat: "Baixa",
-    important: false,
-    descripcio: "Ordenar escriptori i prestatgeries",
-  },
-];
-
 const categories = [
   { id: 1, nom: "Personal" },
   { id: 2, nom: "Casa" },
