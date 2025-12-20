@@ -149,3 +149,11 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - S'ha modificat la maquetació de les columnes del formulari amb la classe Bootstrap `col-10`.
 
 - Validacions corregides i funcionals amb missatges personalitzats.
+
+`20/12/2025 (dev20122025):`
+
+- Eliminat array `faker` de **`App.jsx`** per implementar la creació de tasques amb peristència.
+
+- Eliminat `<tr>` de la taula a **`App.jsx`**.
+
+- Afegit atribut `type` a **`Button.jsx`**, d'aquesta forma podrem crear botons normals i submit per al formulari.
