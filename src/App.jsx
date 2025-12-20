@@ -148,26 +148,7 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {faker.map((tasca) => (
-                  <tr key={tasca.id}>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
-                    <td className="p-4">{tasca.nom}</td>
-                    <td className="p-4">{tasca.categoria}</td>
-                    <td className="p-4">{tasca.dueDate}</td>
-                    <td className="p-4">{tasca.prioritat}</td>
-                    <td className="p-4">{tasca.descripcio}</td>
-                    <td className="p-4">
-                      <Button bootstrap="btn btn-sm btn-warning me-2">
-                        <i className="fa-solid fa-pen"></i>
-                      </Button>
-                      <Button bootstrap="btn btn-sm btn-danger">
-                        <i className="fa-solid fa-trash"></i>
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+                
               </tbody>
             </table>
           </div>
