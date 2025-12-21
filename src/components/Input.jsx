@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 
-function Input({ bootstrap = null, type, name, id, children, defaultValue = null }) {
+function Input({ bootstrap = null, type, name, id = null, children = null, defaultValue = null }) {
   const {
     register,
     formState: { errors },
@@ -8,9 +8,9 @@ function Input({ bootstrap = null, type, name, id, children, defaultValue = null
 
   return (
     <div className="d-flex flex-column">
-      <label className="form-label" htmlFor={id}>
+      { id && children && (<label className="form-label" htmlFor={id}>
         {children}
-      </label>
+      </label>)}
 
       <input className={bootstrap} type={type} id={id} defaultValue={defaultValue} {...register(name)} />
 

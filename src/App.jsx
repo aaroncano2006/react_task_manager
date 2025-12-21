@@ -30,6 +30,8 @@ const prioritats = prioritatsBase.map(p => ({
   value: p.nom.toLowerCase(),
 }));
 
+const maxKey = localStorage.length + 1;
+
 function App() {
   return (
     <>
@@ -40,6 +42,9 @@ function App() {
 
         <Card headerText="Crear tasca">
           <Form>
+
+            <Input type="hidden" name="taskId" id="taskId" defaultValue={maxKey}></Input>
+
             <div className="row mb-3">
               <div className="col-10">
                 <Input
@@ -120,6 +125,8 @@ function App() {
                 </Textarea>
               </div>
             </div>
+
+            <Input type="hidden" name="completed" id="completed" defaultValue={false}></Input>
 
             <Button bootstrap="btn btn-primary" type="submit">
               Afegir tasca
