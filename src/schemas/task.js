@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 export const taskSchema = z.object({
+  taskId: z.coerce.number(),
+
   taskName: z.string().min(5, { message: "Longitud mínima de 5 caràcters" }),
 
   taskCategory: z.enum(["Personal", "Casa", "Feina", "Estudis"], { message: "Has de seleccionar una de les categories predefinides." }),
@@ -29,7 +31,7 @@ export const taskSchema = z.object({
 
   taskPriority: z.enum(["baixa", "mitjana", "alta"], { message: "El valor ha de pertànyer a una de les prioritats predefinides" }),
 
-  taskImportant: z.boolean().optional(),
+  taskImportant: z.coerce.boolean().optional(),
 
   taskDescription: z
     .string()
@@ -37,4 +39,6 @@ export const taskSchema = z.object({
       message: "La descripció ha de contenir com a màxim 300 caràcters.",
     })
     .optional(),
+
+  completed: z.coerce.boolean(),
 });
