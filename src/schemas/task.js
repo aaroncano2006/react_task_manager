@@ -31,7 +31,7 @@ export const taskSchema = z.object({
 
   taskPriority: z.enum(["baixa", "mitjana", "alta"], { message: "El valor ha de pertànyer a una de les prioritats predefinides" }),
 
-  taskImportant: z.boolean().optional(),
+  taskImportant: z.coerce.boolean().optional(),
 
   taskDescription: z
     .string()
@@ -40,5 +40,5 @@ export const taskSchema = z.object({
     })
     .optional(),
 
-  completed: z.boolean(),
+  completed: z.coerce.boolean(),
 });
