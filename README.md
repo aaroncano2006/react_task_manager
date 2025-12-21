@@ -157,3 +157,17 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - Eliminat `<tr>` de la taula a **`App.jsx`**.
 
 - Afegit atribut `type` a **`Button.jsx`**, d'aquesta forma podrem crear botons normals i submit per al formulari.
+
+`21/12/2025 (dev21122025):`
+
+- Scroll per al llistat de tasques eliminat.
+
+- Component **`Input.jsx`** refactoritzat per soportar `type="hidden"` i afegir al formulari els camps ocults **`taskId`** i **`completed`**.
+
+- Persistència a `localStorage` al fer submit al formulari.
+
+- Afegits camps ocults del formulari al Zod Schema per a persistir correctament l'objecte.
+
+- Coerce afegit als valors booleans del Zod Schema per evitar que s'enviin strings.
+
+- Persistència a `localStorage` corregida amb `JSON.stringify`.
