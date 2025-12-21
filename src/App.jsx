@@ -41,7 +41,7 @@ function App() {
         </div>
 
         <Card headerText="Crear tasca">
-          <Form>
+          <Form id="taskForm" bootstrap="mt-3 ms-5 align-items-center">
 
             <Input type="hidden" name="taskId" id="taskId" defaultValue={maxKey}></Input>
 
