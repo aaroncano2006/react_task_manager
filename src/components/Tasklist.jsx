@@ -36,7 +36,7 @@ function Tasklist({ content }) {
           <td>{task.taskPriority}</td>
           <td className="p-3">{task.taskDescription}</td>
           <td className="p-3">
-            <Button bootstrap="btn btn-sm bg-danger" type="button">
+            <Button bootstrap="btn btn-sm btn-danger" type="button">
                 <i className="fa-solid fa-trash text-white"></i>
             </Button>
           </td>
