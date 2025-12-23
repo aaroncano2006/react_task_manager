@@ -11,26 +11,26 @@ import RadioButton from "./components/RadioButton";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 
-const categories = [
+const CATEGORIES = [
   { id: 1, nom: "Personal" },
   { id: 2, nom: "Casa" },
   { id: 3, nom: "Feina" },
   { id: 4, nom: "Estudis" },
 ];
 
-const prioritatsBase = [
+const PRIORITATS_BASE = [
   { id: 1, nom: "Baixa" },
   { id: 2, nom: "Mitjana" },
   { id: 3, nom: "Alta" },
 ];
 
-const prioritats = prioritatsBase.map(p => ({
+const PRIORITATS = PRIORITATS_BASE.map(p => ({
   ...p,
   htmlId: `taskPriority-${p.nom.toLowerCase()}`,
   value: p.nom.toLowerCase(),
 }));
 
-const maxKey = localStorage.length + 1;
+const MAX_KEY = localStorage.length + 1;
 
 function App() {
   return (
@@ -43,7 +43,7 @@ function App() {
         <Card headerText="Crear tasca">
           <Form id="taskForm" bootstrap="mt-3 ms-5 align-items-center">
 
-            <Input type="hidden" name="taskId" id="taskId" defaultValue={maxKey}></Input>
+            <Input type="hidden" name="taskId" id="taskId" defaultValue={MAX_KEY}></Input>
 
             <div className="row mb-3">
               <div className="col-10">
@@ -67,7 +67,7 @@ function App() {
                   textLabel="Categoria"
                 >
                   <option value="">-- Selecciona una categoria --</option>
-                  {categories.map((cat) => {
+                  {CATEGORIES.map((cat) => {
                     return (
                       <option key={cat.id} value={cat.nom}>
                         {cat.nom}
@@ -94,7 +94,7 @@ function App() {
             <div className="row mb-3">
               <div className="col-10">
                 <RadioGroup>
-                  {prioritats.map((p) => {
+                  {PRIORITATS.map((p) => {
                     return (
                       <RadioButton
                         name="taskPriority"
