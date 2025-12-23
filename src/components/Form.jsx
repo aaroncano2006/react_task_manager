@@ -8,6 +8,7 @@ function Form({id, bootstrap, children }) {
   });
 
   const onSubmit = (data) => {
+    console.log(data);
     const maxKey = localStorage.length + 1;
     localStorage.setItem(maxKey, JSON.stringify(data));
     methods.reset();

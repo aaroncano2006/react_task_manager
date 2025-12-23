@@ -10,6 +10,7 @@ import RadioGroup from "./components/RadioGroup";
 import RadioButton from "./components/RadioButton";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
+import Tasklist from "./components/Tasklist";
 
 const CATEGORIES = [
   { id: 1, nom: "Personal" },
@@ -155,7 +156,7 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                
+                <Tasklist content={localStorage}></Tasklist>
               </tbody>
             </table>
           </div>
