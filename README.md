@@ -171,3 +171,11 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - Coerce afegit als valors booleans del Zod Schema per evitar que s'enviin strings.
 
 - Persistència a `localStorage` corregida amb `JSON.stringify`.
+
+`23/12/2025 (dev23122025):`
+
+- Constants globals de **`App.jsx`** refactoritzades.
+
+- Component **`Tasklist.jsx`** creat i tasques de `localStorage` renderitzades al llistat.
+
+- Corregida classe Bootstrap per al botó d'acció d'eliminar.
