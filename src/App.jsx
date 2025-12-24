@@ -12,6 +12,7 @@ import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 import Tasklist from "./components/Tasklist";
 
+/*==== CONSTANTS GLOBALS ====*/
 const CATEGORIES = [
   { id: 1, nom: "Personal" },
   { id: 2, nom: "Casa" },
@@ -25,7 +26,7 @@ const PRIORITATS_BASE = [
   { id: 3, nom: "Alta" },
 ];
 
-const PRIORITATS = PRIORITATS_BASE.map(p => ({
+const PRIORITATS = PRIORITATS_BASE.map((p) => ({
   ...p,
   htmlId: `taskPriority-${p.nom.toLowerCase()}`,
   value: p.nom.toLowerCase(),
@@ -43,8 +44,12 @@ function App() {
 
         <Card headerText="Crear tasca">
           <Form id="taskForm" bootstrap="mt-3 ms-5 align-items-center">
-
-            <Input type="hidden" name="taskId" id="taskId" defaultValue={MAX_KEY}></Input>
+            <Input
+              type="hidden"
+              name="taskId"
+              id="taskId"
+              defaultValue={MAX_KEY}
+            ></Input>
 
             <div className="row mb-3">
               <div className="col-10">
@@ -113,7 +118,11 @@ function App() {
 
             <div className="row mb-3">
               <div className="col-10">
-                <Checkbox name="taskImportant" id="taskImportant" defaultValue={true}>
+                <Checkbox
+                  name="taskImportant"
+                  id="taskImportant"
+                  defaultChecked={false}
+                >
                   Marca com a important
                 </Checkbox>
               </div>
@@ -121,13 +130,23 @@ function App() {
 
             <div className="row mb-3">
               <div className="col-10">
-                <Textarea bootstrap="mb-2" name="taskDescription" id="taskDescription" cols="10" rows="5">
+                <Textarea
+                  bootstrap="mb-2"
+                  name="taskDescription"
+                  id="taskDescription"
+                  cols="10"
+                  rows="5"
+                >
                   Descripció
                 </Textarea>
               </div>
             </div>
 
-            <Input type="hidden" name="completed" id="completed" defaultValue={false}></Input>
+            <Input
+              type="hidden"
+              name="completed"
+              id="completed"
+            ></Input>
 
             <Button bootstrap="btn btn-primary" type="submit">
               Afegir tasca
