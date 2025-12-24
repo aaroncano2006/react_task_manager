@@ -121,7 +121,7 @@ function App() {
                 <Checkbox
                   name="taskImportant"
                   id="taskImportant"
-                  defaultValue={true}
+                  defaultChecked={false}
                 >
                   Marca com a important
                 </Checkbox>
