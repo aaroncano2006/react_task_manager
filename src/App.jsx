@@ -146,7 +146,6 @@ function App() {
               type="hidden"
               name="completed"
               id="completed"
-              defaultValue={false}
             ></Input>
 
             <Button bootstrap="btn btn-primary" type="submit">
