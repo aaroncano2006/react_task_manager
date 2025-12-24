@@ -179,3 +179,16 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - Component **`Tasklist.jsx`** creat i tasques de `localStorage` renderitzades al llistat.
 
 - Corregida classe Bootstrap per al botó d'acció d'eliminar.
+
+`24/12/2025 (dev24122025):`
+
+- Afegits atributs `target` i `action` a **`Button.jsx`** per poder manipular funcions que afecten a elements del DOM.
+
+- Eliminació de tasques implementada. S'ha afegit l'atribut `data-set` als `<tr>` de **`Tasklist.jsx`** i la funció `deleteTask`. 
+Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `deleteTask`, automàticament l'event de clicar el botó serà la funció apuntant a la fila que correspon amb la id de la tasca.
+
+- Per defecte `completed` no s'enviarà amb `defaultValue` per evitar que el seu valor sigui `true`.
+
+- Ara la checkbox del llistat es renderitzarà marcada en funció de si `completed` es `true` o `false`.
+
+- Ara **`taskImportant`** s'enviarà correctament al fer submit, per tant, ja es pot marcar correctament com a important qualsevol tasca, es renderitzarà una icona al costat del nom indicant que és una tasca important.
