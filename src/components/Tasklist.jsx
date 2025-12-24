@@ -1,12 +1,18 @@
 import Button from "./Button";
 
 function Tasklist({ content }) {
+  /*==== FUNCIONS PER INTERACTUAR AMB EL LLISTAT ====*/
   const deleteTask = (target) => {
     const target_row = document.querySelector(`tr[data-set="${target}"]`);
     target_row.remove();
     localStorage.removeItem(target);
   };
 
+  const markAsCompleted = (target) => {
+
+  };
+
+  /*==== CARREGAR LLISTAT A PARTIR DELS ELEMENTS DESATS A LOCALSTORAGE ====*/
   const tasks = [];
 
   if (content.length > 0) {
@@ -29,9 +35,12 @@ function Tasklist({ content }) {
       {tasks.map((task) => (
         <tr key={task.taskId} data-set={task.taskId}>
           <td>
-            <input type="checkbox"></input>
+            {task.completed 
+              ? <input type="checkbox" checked></input>
+              : <input type="checkbox"></input>
+            }
           </td>
-          <td>
+          <td className="p-3">
             <span>{task.taskName}</span>
             {task.taskImportant && (
               <i className="fa-solid fa-triangle-exclamation text-danger ms-2"></i>
