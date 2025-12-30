@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Card from "./components/Card";
@@ -32,9 +32,49 @@ const PRIORITATS = PRIORITATS_BASE.map((p) => ({
   value: p.nom.toLowerCase(),
 }));
 
-const MAX_KEY = localStorage.length + 1;
-
 function App() {
+  /*====CARREGAR TASQUES====*/
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const storedTasks = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      try {
+        storedTasks.push(JSON.parse(localStorage.getItem(key)));
+      } catch {}
+    }
+
+    setTasks(storedTasks);
+  }, []);
+
+  /*====FUNCIONS====*/
+  /**
+   * Afegeix tasca a localStorage. S'ha de passar com a paràmetre a un component Form.jsx
+   * @param {*} task
+   */
+  const addTask = (task) => {
+    const newTask = {
+      ...task,
+      taskId: Date.now(),
+      completed: false,
+    };
+
+    setTasks((prev) => [...prev, newTask]);
+    localStorage.setItem(newTask.taskId, JSON.stringify(newTask));
+  };
+
+  /**
+   * Esborra una tasca concreta del llistat. S'ha de passar com a paràmetre a un component Button.jsx
+   * @param {*} target
+   */
+  const deleteTask = (target) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.taskId !== target));
+
+    localStorage.removeItem(target);
+  };
+
   return (
     <>
       <div className="container mt-5">
@@ -43,14 +83,11 @@ function App() {
         </div>
 
         <Card headerText="Crear tasca">
-          <Form id="taskForm" bootstrap="mt-3 ms-5 align-items-center">
-            <Input
-              type="hidden"
-              name="taskId"
-              id="taskId"
-              defaultValue={MAX_KEY}
-            ></Input>
-
+          <Form
+            id="taskForm"
+            bootstrap="mt-3 ms-5 align-items-center"
+            submitHandler={addTask}
+          >
             <div className="row mb-3">
               <div className="col-10">
                 <Input
@@ -142,12 +179,6 @@ function App() {
               </div>
             </div>
 
-            <Input
-              type="hidden"
-              name="completed"
-              id="completed"
-            ></Input>
-
             <Button bootstrap="btn btn-primary" type="submit">
               Afegir tasca
             </Button>
@@ -175,7 +206,7 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                <Tasklist content={localStorage}></Tasklist>
+                <Tasklist content={tasks} onDelete={deleteTask}></Tasklist>
               </tbody>
             </table>
           </div>

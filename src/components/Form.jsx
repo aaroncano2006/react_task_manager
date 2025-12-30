@@ -2,17 +2,15 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "../schemas/task";
 
-function Form({id, bootstrap, children }) {
+function Form({id, bootstrap, children, submitHandler }) {
   const methods = useForm({
     resolver: zodResolver(taskSchema),
   });
 
   const onSubmit = (data) => {
     console.log(data);
-    const maxKey = localStorage.length + 1;
-    localStorage.setItem(maxKey, JSON.stringify(data));
+    submitHandler(data);
     methods.reset();
-    window.location.reload();
   };
 
   return (
