@@ -8,7 +8,7 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - **Emmagatzemar les tasques al navegador web (utilitzant localStorage)**
 - **Llistar totes les tasques creades**
 - **Filtrar tasques mitjançant diferents paràmetres**
-- **Marcar tasques**
+- **Marcar i desmarcar tasques**
 - **Eliminar les tasques**
 
 ## 🛠️ Tech stack (Tecnologies utilitzades)
@@ -192,3 +192,15 @@ Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `
 - Ara la checkbox del llistat es renderitzarà marcada en funció de si `completed` es `true` o `false`.
 
 - Ara **`taskImportant`** s'enviarà correctament al fer submit, per tant, ja es pot marcar correctament com a important qualsevol tasca, es renderitzarà una icona al costat del nom indicant que és una tasca important.
+
+`30/12/2025 (dev30122025):`
+
+- S'ha refactoritzat tota l'aplicació per utilitzar `useState` en comptes de tocar el DOM directament per utilitzar bones pràctiques de React, si canvia l'estat el DOM també canvia. Amb això, s'han mogut les funcions dels components **`Form.jsx`** i **`Tasklist.jsx`** a **`App.jsx`** i ara es passen com a paràmetre en els seus respectius components als atributs `submitHandler`.
+
+- **`Tasklist.jxs`** ja no rep `localStorage` com a `content`, ara rep l'array `tasks`, que funciona amb `useState` i permet recarregar el contingut de la taula dinàmicament sense tocar el DOM manualment.
+
+- S'han eliminat els input hidden del formulari, ara la id i `completed` iniciat a `false` s'afegeixen a la funció `addTask` juntament amb la resta de dades que s'envien del formulari. Aquest camps han sigut eliminats també del Zod Schema per mantenir el funcionament del formulari i no validar aquests camps.
+
+- S'ha eliminat la constant `MAX_KEY` ja que aquesta depenia de la longitud de `localStorage` i podien haver-hi problemes de keys duplicades quan s'eliminaven elements. Ara la id es crea a partir del timestamp en el moment de fer submit.
+
+- Ja es poden marcar i desmarcar tasques com a completades.

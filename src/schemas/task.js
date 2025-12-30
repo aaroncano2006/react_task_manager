@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const taskSchema = z.object({
-  taskId: z.coerce.number(),
 
   taskName: z.string().min(5, { message: "Longitud mínima de 5 caràcters" }),
 
@@ -39,6 +38,4 @@ export const taskSchema = z.object({
       message: "La descripció ha de contenir com a màxim 300 caràcters.",
     })
     .optional(),
-
-  completed: z.coerce.boolean(),
 });

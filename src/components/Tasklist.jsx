@@ -1,47 +1,21 @@
 import Button from "./Button";
 
-function Tasklist({ content }) {
-  /*==== FUNCIONS PER INTERACTUAR AMB EL LLISTAT ====*/
-  const deleteTask = (target) => {
-    const target_row = document.querySelector(`tr[data-set="${target}"]`);
-    target_row.remove();
-    localStorage.removeItem(target);
-  };
-
-  const markAsCompleted = (target) => {
-
-  };
-
-  /*==== CARREGAR LLISTAT A PARTIR DELS ELEMENTS DESATS A LOCALSTORAGE ====*/
-  const tasks = [];
-
-  if (content.length > 0) {
-    for (let i = 0; i < content.length; i++) {
-      const key = content.key(i);
-      const value = content.getItem(key);
-
-      try {
-        tasks.push(JSON.parse(value));
-      } catch (e) {
-        console.log("No s'ha detectat un format de tasca vàlid: " + e);
-      }
-    }
-  }
-
-  console.log(tasks);
-
+function Tasklist({ content, onDelete, onMark }) {
   return (
     <>
-      {tasks.map((task) => (
+      {content.map((task) => (
         <tr key={task.taskId} data-set={task.taskId}>
           <td>
             {task.completed 
-              ? <input type="checkbox" checked></input>
-              : <input type="checkbox"></input>
+              ? <input type="checkbox" checked onChange={() => onMark(task.taskId)}></input>
+              : <input type="checkbox" onChange={() => onMark(task.taskId)}></input>
             }
           </td>
           <td className="p-3">
-            <span>{task.taskName}</span>
+            {task.completed
+              ? <span className="text-decoration-line-through">{task.taskName}</span>
+              : <span>{task.taskName}</span>
+            }
             {task.taskImportant && (
               <i className="fa-solid fa-triangle-exclamation text-danger ms-2"></i>
             )}
@@ -51,7 +25,7 @@ function Tasklist({ content }) {
           <td>{task.taskPriority}</td>
           <td className="p-3">{task.taskDescription}</td>
           <td className="p-3">
-            <Button bootstrap="btn btn-sm btn-danger" type="button" target={task.taskId} action={deleteTask}>
+            <Button bootstrap="btn btn-sm btn-danger" type="button" target={task.taskId} action={onDelete}>
                 <i className="fa-solid fa-trash text-white"></i>
             </Button>
           </td>
