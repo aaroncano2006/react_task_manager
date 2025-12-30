@@ -66,13 +66,34 @@ function App() {
   };
 
   /**
-   * Esborra una tasca concreta del llistat. S'ha de passar com a paràmetre a un component Button.jsx
+   * Esborra una tasca concreta del llistat. S'ha de passar com a paràmetre a un component Tasklist.jsx i dins d'aquest a un component Button.jsx
    * @param {*} target
    */
   const deleteTask = (target) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.taskId !== target));
+    setTasks((prevTasks) => prevTasks.filter((task) => task.taskId !== target)); // Selecciona només les tasques on la id no sigui la mateixa que es passa com a target.
 
     localStorage.removeItem(target);
+  };
+
+  /**
+   * Marca o desmarca una tasca concreta del llista.
+   * @param {*} target
+   */
+  const markTask = (target) => {
+    setTasks((prevTasks) =>
+      // Recorrem totes les tasques fins trobar target
+      prevTasks.map((task) => {
+        if (task.taskId === target) {
+          /* Si es troba target fem una copia de la tasca amb
+          aquella id amb spread operator i canviem el seu completed a 
+          l'estat contrari (!task.completed)*/
+          const updatedTask = { ...task, completed: !task.completed };
+          localStorage.setItem(target, JSON.stringify(updatedTask)); // Sincronitzem amb localStorage.
+          return updatedTask; // Retornem la tasca modificada a l'array mapejat.
+        }
+        return task; // Si no és target, simplement deixem la tasca intacta i la retornem.
+      })
+    );
   };
 
   return (
@@ -206,7 +227,11 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                <Tasklist content={tasks} onDelete={deleteTask}></Tasklist>
+                <Tasklist
+                  content={tasks}
+                  onDelete={deleteTask}
+                  onMark={markTask}
+                ></Tasklist>
               </tbody>
             </table>
           </div>
