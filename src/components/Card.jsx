@@ -1,6 +1,8 @@
-function Card({ headerText, children }) {
+function Card({ headerText, children, id = null }) {
+  const className = `card mb-4 ${id ? "collapse" : ""}`;
+
   return (
-    <div className="card mb-4">
+    <div className={className} {...(id ? { id } : {})}>
       <div className="card-header">{headerText}</div>
       <div className="card-body">
         {children}
