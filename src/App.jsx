@@ -103,7 +103,7 @@ function App() {
           <h1>Task manager</h1>
         </div>
 
-        <Card headerText="Crear tasca">
+        <Card headerText="Crear tasca" id="formCard">
           <Form
             id="taskForm"
             bootstrap="mt-3 ms-5 align-items-center"
@@ -207,8 +207,8 @@ function App() {
         </Card>
 
         <div className="row-3 mb-4" id="createButtonRow">
-          <Button bootstrap="btn btn-primary" type="button">
-            <i className="fa-solid fa-circle-plus"></i> Crear tasca
+          <Button bootstrap="btn btn-primary" type="button" dtoggle="collapse" dtarget="#formCard" aexpanded="false" acontrols="formCard">
+            <i className="fa-solid fa-circle-plus"></i> Afegir nova tasca
           </Button>
         </div>
 
