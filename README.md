@@ -204,3 +204,7 @@ Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `
 - S'ha eliminat la constant `MAX_KEY` ja que aquesta depenia de la longitud de `localStorage` i podien haver-hi problemes de keys duplicades quan s'eliminaven elements. Ara la id es crea a partir del timestamp en el moment de fer submit.
 
 - Ja es poden marcar i desmarcar tasques com a completades.
+
+`02/01/2026 (dev02012026):`
+
+- S'ha afegit un collapse de Bootstrap al component **`Card.jsx`** per poder visualitzar directament les tasques i només mostrar el formulari quan realment es necessiti afegir una tasca.
