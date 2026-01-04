@@ -131,7 +131,7 @@ function App() {
 
         <div className="mb-4">
           <Button
-            bootstrap="btn btn-primary me-2"
+            bootstrap="btn btn-primary me-2 mb-2"
             type="button"
             dtoggle="collapse"
             dtarget="#formCard"
@@ -141,7 +141,7 @@ function App() {
 
           {!hasSeeder && (
             <Button
-              bootstrap="btn btn-secondary me-2"
+              bootstrap="btn btn-secondary me-2 mb-2"
               type="button"
               action={loadSeeder}
             >
@@ -152,7 +152,7 @@ function App() {
 
           {hasSeeder && (
             <Button
-              bootstrap="btn btn-danger me-2"
+              bootstrap="btn btn-danger me-2 mb-2"
               type="button"
               action={removeSeeder}
             >
