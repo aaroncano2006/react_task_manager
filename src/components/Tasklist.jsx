@@ -4,7 +4,8 @@ function Tasklist({ content, onDelete, onMark }) {
   return (
     <>
       {content.map((task) => (
-        <tr key={task.taskId}>
+        <tr key={task.taskId} 
+        className={task.completed ? "bg-secondary bg-opacity-10" : ""}>
           <td>
             <input
               type="checkbox"
@@ -28,7 +29,7 @@ function Tasklist({ content, onDelete, onMark }) {
           <td>{task.taskCategory}</td>
           <td>{task.taskDueDate}</td>
           <td>{task.taskPriority}</td>
-          <td className="p-3">{task.taskDescription}</td>
+          <td className="p-3">{task.taskDescription || "-"}</td>
 
           <td className="p-3">
             <Button
