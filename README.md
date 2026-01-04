@@ -7,7 +7,6 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - **Crear tasques**
 - **Emmagatzemar les tasques al navegador web (utilitzant localStorage)**
 - **Llistar totes les tasques creades**
-- **Filtrar tasques mitjançant diferents paràmetres**
 - **Marcar i desmarcar tasques**
 - **Eliminar les tasques**
 
@@ -208,3 +207,19 @@ Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `
 `02/01/2026 (dev02012026):`
 
 - S'ha afegit un collapse de Bootstrap al component **`Card.jsx`** per poder visualitzar directament les tasques i només mostrar el formulari quan realment es necessiti afegir una tasca.
+
+`04/01/2026 (dev04012026):`
+
+- S'ha afegit el seeder **`task_seed.js`** per poder carregar dades de prova a l'apliació amb la nova funció `loadSeeder`.
+
+- Seeder modificat amb IDs fixes sense `Date.now()` (1, 2, 3, 4) per poder identificar quines tasques venen del seeder i quines del formulari.
+
+- Refactor de la persistència amb `localStorage`, ara les tasques es desen a un array amb la key `tasks` dins de `localStorage`. Aquest canvi és una bona pràctica ja que en cas de necessitar persistir més objectes a part de tasques no es barrejarien al llistat ni a l'emmagatzemament i podrem identificar millor on es troba cada cosa.
+
+- Ja es poden eliminar les tasques generades des del seeder. A més s'ha afegit un renderitzat opcional que mostrarà el botó de carregar o d'esborrar en funció de si el seeder s'ha executat o no.
+
+- Renderitzat condicional al llistat. Si no hi ha descripció s'escriurà "-" i si la tasca s'ha completat s'aplicarà un fons gris clar.
+
+- Classes de bootstrap modificades als botons de **`App.jsx`** per fer el disseny més responsive.
+
+- Taula amb llistat de tasques compatible amb disseny responsive.
