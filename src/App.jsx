@@ -11,6 +11,7 @@ import RadioButton from "./components/RadioButton";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 import Tasklist from "./components/Tasklist";
+import { TASK_SEED } from "./seeders/task_seed";
 
 /*==== CONSTANTS GLOBALS ====*/
 const CATEGORIES = [
@@ -96,11 +97,34 @@ function App() {
     );
   };
 
+  /**
+   * Carrega dades de prova per comprovar si el llistat es renderitza correctament
+   * i la resta de funcionalitats de l'aplicació funcionen sense cap error.
+   */
+  const loadSeeder = () => {
+    const tasks = TASK_SEED;
+
+    tasks.map((el) => {
+      setTasks((prev) => [...prev, el]);
+      localStorage.setItem(el.taskId, JSON.stringify(el));
+    });
+  };
+
   return (
     <>
       <div className="container mt-5">
         <div className="row mb-3">
           <h1>Task manager</h1>
+        </div>
+
+        <div className="row-3 mb-4" id="createButtonRow">
+          <Button bootstrap="btn btn-primary me-2" type="button" dtoggle="collapse" dtarget="#formCard" aexpanded="false" acontrols="formCard">
+            <i className="fa-solid fa-circle-plus"></i> Afegir nova tasca
+          </Button>
+
+          <Button bootstrap="btn btn-secondary" type="button" action={loadSeeder}>
+            Carregar dades de prova
+          </Button>
         </div>
 
         <Card headerText="Crear tasca" id="formCard">
@@ -205,12 +229,6 @@ function App() {
             </Button>
           </Form>
         </Card>
-
-        <div className="row-3 mb-4" id="createButtonRow">
-          <Button bootstrap="btn btn-primary" type="button" dtoggle="collapse" dtarget="#formCard" aexpanded="false" acontrols="formCard">
-            <i className="fa-solid fa-circle-plus"></i> Afegir nova tasca
-          </Button>
-        </div>
 
         <div className="mb-4" id="listContainer">
           <div className="row-3">
