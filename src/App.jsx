@@ -33,22 +33,17 @@ const PRIORITATS = PRIORITATS_BASE.map((p) => ({
   value: p.nom.toLowerCase(),
 }));
 
+const TASKS_KEY = "tasks"; // Array de tasques de localStorage
+
 function App() {
   /*====CARREGAR TASQUES====*/
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    return JSON.parse(localStorage.getItem(TASKS_KEY)) || [];
+  });
 
   useEffect(() => {
-    const storedTasks = [];
-
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      try {
-        storedTasks.push(JSON.parse(localStorage.getItem(key)));
-      } catch {}
-    }
-
-    setTasks(storedTasks);
-  }, []);
+    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+  }, [tasks]);
 
   /*====FUNCIONS====*/
   /**
@@ -63,7 +58,6 @@ function App() {
     };
 
     setTasks((prev) => [...prev, newTask]);
-    localStorage.setItem(newTask.taskId, JSON.stringify(newTask));
   };
 
   /**
@@ -71,9 +65,8 @@ function App() {
    * @param {*} target
    */
   const deleteTask = (target) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.taskId !== target)); // Selecciona només les tasques on la id no sigui la mateixa que es passa com a target.
-
-    localStorage.removeItem(target);
+    // Selecciona només les tasques on la id no sigui la mateixa que es passa com a target.
+    setTasks((prevTasks) => prevTasks.filter((task) => task.taskId !== target));
   };
 
   /**
@@ -83,17 +76,18 @@ function App() {
   const markTask = (target) => {
     setTasks((prevTasks) =>
       // Recorrem totes les tasques fins trobar target
-      prevTasks.map((task) => {
-        if (task.taskId === target) {
-          /* Si es troba target fem una copia de la tasca amb
-          aquella id amb spread operator i canviem el seu completed a 
-          l'estat contrari (!task.completed)*/
-          const updatedTask = { ...task, completed: !task.completed };
-          localStorage.setItem(target, JSON.stringify(updatedTask)); // Sincronitzem amb localStorage.
-          return updatedTask; // Retornem la tasca modificada a l'array mapejat.
-        }
-        return task; // Si no és target, simplement deixem la tasca intacta i la retornem.
-      })
+      prevTasks.map(
+        (task) =>
+          /* 
+          Si es troba target fem una copia de la tasca amb
+          aquella id amb spread operator i 
+          canviem el seu completed a l'estat contrari 
+          (!task.completed)
+        */
+          task.taskId === target
+            ? { ...task, completed: !task.completed } // Retornem la tasca modificada a l'array mapejat.
+            : task // Si no és target, simplement deixem la tasca intacta i la retornem.
+      )
     );
   };
 
@@ -102,13 +96,31 @@ function App() {
    * i la resta de funcionalitats de l'aplicació funcionen sense cap error.
    */
   const loadSeeder = () => {
-    const tasks = TASK_SEED;
-
-    tasks.map((el) => {
-      setTasks((prev) => [...prev, el]);
-      localStorage.setItem(el.taskId, JSON.stringify(el));
-    });
+    setTasks((prev) => [
+      ...prev,
+      ...TASK_SEED.filter(
+        (seed) => !prev.some((task) => task.taskId === seed.taskId)
+      ),
+    ]);
   };
+
+  /**
+   * Esborra només les dades de prova del seeder.
+   */
+  const removeSeeder = () => {
+    setTasks((prev) =>
+      prev.filter(
+        (task) => !TASK_SEED.some((seed) => seed.taskId === task.taskId)
+      )
+    );
+  };
+
+  /**
+   * Detecta si s'ha carregat el seeder.
+   */
+  const hasSeeder = tasks.some((task) =>
+    TASK_SEED.some((seed) => seed.taskId === task.taskId)
+  );
 
   return (
     <>
@@ -117,14 +129,36 @@ function App() {
           <h1>Task manager</h1>
         </div>
 
-        <div className="row-3 mb-4" id="createButtonRow">
-          <Button bootstrap="btn btn-primary me-2" type="button" dtoggle="collapse" dtarget="#formCard" aexpanded="false" acontrols="formCard">
+        <div className="mb-4">
+          <Button
+            bootstrap="btn btn-primary me-2"
+            type="button"
+            dtoggle="collapse"
+            dtarget="#formCard"
+          >
             <i className="fa-solid fa-circle-plus"></i> Afegir nova tasca
           </Button>
 
-          <Button bootstrap="btn btn-secondary" type="button" action={loadSeeder}>
-            Carregar dades de prova
-          </Button>
+          {!hasSeeder && (
+            <Button
+              bootstrap="btn btn-secondary me-2"
+              type="button"
+              action={loadSeeder}
+            >
+              <i className="fa-solid fa-wand-magic-sparkles"></i> Carregar dades
+              de prova
+            </Button>
+          )}
+
+          {hasSeeder && (
+            <Button
+              bootstrap="btn btn-danger me-2"
+              type="button"
+              action={removeSeeder}
+            >
+              <i className="fa-solid fa-xmark"></i> Esborrar dades de prova
+            </Button>
+          )}
         </div>
 
         <Card headerText="Crear tasca" id="formCard">
