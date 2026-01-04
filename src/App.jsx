@@ -265,7 +265,7 @@ function App() {
         </Card>
 
         <div className="mb-4" id="listContainer">
-          <div className="row-3">
+          <div className="row-3 table-responsive">
             <table className="table-bordered">
               <thead>
                 <tr>
