@@ -1,6 +1,6 @@
 export const TASK_SEED = [
   {
-    taskId: Date.now(),
+    taskId: 1,
     taskName: "Aprendre React",
     taskCategory: "Estudis",
     taskDueDate: "2026-01-10",
@@ -10,7 +10,7 @@ export const TASK_SEED = [
     completed: false,
   },
   {
-    taskId: Date.now() + 1,
+    taskId: 2,
     taskName: "Fer la compra",
     taskCategory: "Casa",
     taskDueDate: "2026-01-05",
@@ -20,7 +20,7 @@ export const TASK_SEED = [
     completed: false,
   },
   {
-    taskId: Date.now() + 2,
+    taskId: 3,
     taskName: "Enviar CVs",
     taskCategory: "Feina",
     taskDueDate: "2026-01-15",
@@ -30,7 +30,7 @@ export const TASK_SEED = [
     completed: true,
   },
   {
-    taskId: Date.now() + 3,
+    taskId: 4,
     taskName: "Sortir a caminar",
     taskCategory: "Personal",
     taskDueDate: "2026-01-03",
