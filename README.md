@@ -57,9 +57,43 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 ## 👀 Requisits previs
 
 - **[Node JS 22.21.1](https://nodejs.org/en/download)**
+- **[Git](https://git-scm.com/install/)**
 
-## Instal·lació
+**Nota**: És possible que si treballes des de una distribució Linux ja tinguis Git instal·lat, pots comprovar-ho amb la següent comanda:
 
+```bash
+git --version
+```
+La sortida hauria de ser similar a la següent:
+
+```bash
+git version 2.43.0
+```
+
+## ⚙️ Instal·lació
+
+Després d'haver instal·lat NodeJS i Git obrim un terminal (o si estàs des de Windows l'aplicació **Git Bash**) i clonem el repositori:
+
+```bash
+git clone https://github.com/aaroncano2006/react_task_manager.git
+```
+
+En situem dins del directori i reconstruïm els mòduls de Node, necessaris per al funcionament de l'aplicació:
+
+```bash
+npm install
+npm run build
+```
+
+Finalment accedirem de forma local a l'aplicació:
+
+```bash
+npm run dev
+```
+
+Accedim a la URL que ens doni la sortida i ja estarem dins de l'aplicació:
+
+![React Task Manager](readme_src/imgs/01.png)
 
 ## 📃 Changelog
 
