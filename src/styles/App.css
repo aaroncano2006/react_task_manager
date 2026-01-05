@@ -16,3 +16,7 @@ th {
 tr {
     text-align: center;
 }
+
+td button {
+    margin-right: 5px;
+}

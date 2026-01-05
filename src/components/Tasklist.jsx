@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-function Tasklist({ content, onDelete, onMark }) {
+function Tasklist({ content, onDelete, onMark, onExport }) {
   return (
     <>
       {content.map((task) => (
@@ -33,7 +33,15 @@ function Tasklist({ content, onDelete, onMark }) {
 
           <td className="p-3">
             <Button
-              bootstrap="btn btn-sm btn-danger"
+              bootstrap="btn btn-sm btn-warning mb-2"
+              type="button"
+              action={() => onExport(task.taskId)}
+            >
+              <i className="fa-solid fa-download"></i>
+            </Button>
+
+            <Button
+              bootstrap="btn btn-sm btn-danger mb-2"
               type="button"
               action={() => onDelete(task.taskId)}
             >

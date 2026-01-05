@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import Card from "./components/Card";
 import Form from "./components/Form";
 import Button from "./components/Button";
@@ -13,7 +11,7 @@ import Checkbox from "./components/Checkbox";
 import Tasklist from "./components/Tasklist";
 import Modal from "./components/Modal";
 import { TASK_SEED } from "./seeders/task_seed";
-import {CATEGORIES, PRIORITATS, TASKS_KEY} from "./constants/index";
+import { CATEGORIES, PRIORITATS, TASKS_KEY } from "./constants/index";
 
 function App() {
   /*====CARREGAR TASQUES====*/
@@ -49,7 +47,7 @@ function App() {
   const askDeleteTask = (target) => {
     setTaskToDelete(target);
     setShowDeleteModal(true);
-  }
+  };
 
   /**
    * Esborra una tasca concreta del llistat. S'ha de passar com a paràmetre a un component Tasklist.jsx i dins d'aquest a un component Button.jsx
@@ -115,6 +113,46 @@ function App() {
     TASK_SEED.some((seed) => seed.taskId === task.taskId)
   );
 
+  /**
+   * Exporta una tasca concreta a un fitxer JSON.
+   * @param {*} target 
+   * @returns 
+   */
+  const exportTask = (target) => {
+    const tasks = JSON.parse(localStorage.getItem(TASKS_KEY));
+    const targetTask = tasks.find((task) => task.taskId === target);
+    if (!targetTask) return; // Si no troba la tasca surt i no s'executa.
+
+    const dataStr = JSON.stringify(targetTask);
+    // Crea un fitxer en memòria tipus Blob que desa text pla, en aquest cas la tasca en format JSON.
+    const tempFile = new Blob([dataStr], { type: "application/json" }); 
+    const url = URL.createObjectURL(tempFile); // URL temporal.
+
+    // Simula la descarrega creant un element "a".
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `task-${target}.json`;
+    link.click();
+
+    URL.revokeObjectURL(url); // Esborra la URL temporal.
+  };
+
+  /**
+   * Exporta totes les tasques a un fitxer JSON.
+   */
+  const exportAllTasks = () => {
+    const dataStr = JSON.stringify(localStorage.getItem(TASKS_KEY));
+    const tempFile = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(tempFile);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `tasks.json`;
+    link.click();
+
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <>
       <div className="container mt-5">
@@ -152,6 +190,14 @@ function App() {
               <i className="fa-solid fa-xmark"></i> Esborrar dades de prova
             </Button>
           )}
+
+          <Button
+              bootstrap="btn btn-warning me-2 mb-2"
+              type="button"
+              action={exportAllTasks}
+            >
+              <i className="fa-solid fa-download"></i> Exportar tasques a JSON
+            </Button>
         </div>
 
         <Card headerText="Crear tasca" id="formCard">
@@ -276,6 +322,7 @@ function App() {
                   content={tasks}
                   onDelete={askDeleteTask}
                   onMark={markTask}
+                  onExport={exportTask}
                 ></Tasklist>
               </tbody>
             </table>
@@ -291,8 +338,7 @@ function App() {
           submitButtonBootstrap="btn btn-danger"
           target={taskToDelete}
           action={deleteTask}
-        >
-        </Modal>
+        ></Modal>
       </div>
     </>
   );
