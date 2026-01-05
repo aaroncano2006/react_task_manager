@@ -57,9 +57,43 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 ## 👀 Requisits previs
 
 - **[Node JS 22.21.1](https://nodejs.org/en/download)**
+- **[Git](https://git-scm.com/install/)**
 
-## Instal·lació
+**Nota**: És possible que si treballes des de una distribució Linux ja tinguis Git instal·lat, pots comprovar-ho amb la següent comanda:
 
+```bash
+git --version
+```
+La sortida hauria de ser similar a la següent:
+
+```bash
+git version 2.43.0
+```
+
+## ⚙️ Instal·lació
+
+Després d'haver instal·lat NodeJS i Git obrim un terminal (o si estàs des de Windows l'aplicació **Git Bash**) i clonem el repositori:
+
+```bash
+git clone https://github.com/aaroncano2006/react_task_manager.git
+```
+
+En situem dins del directori i reconstruïm els mòduls de Node, necessaris per al funcionament de l'aplicació:
+
+```bash
+npm install
+npm run build
+```
+
+Finalment accedirem de forma local a l'aplicació:
+
+```bash
+npm run dev
+```
+
+Accedim a la URL que ens doni la sortida i ja estarem dins de l'aplicació:
+
+![React Task Manager](readme_src/imgs/01.png)
 
 ## 📃 Changelog
 
@@ -223,3 +257,19 @@ Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `
 - Classes de bootstrap modificades als botons de **`App.jsx`** per fer el disseny més responsive.
 
 - Taula amb llistat de tasques compatible amb disseny responsive.
+
+`05/01/2025 (dev05012026):`
+
+- S'ha eliminat el paràmetre `target` de **`Button.jsx`** i ara `children` dins del mateix component pot ser null.
+
+- Constants globals relocalitzades a `src/constants/index.js`.
+
+- Nou component **`Modal.jsx`** i confirmació d'eliminació mitjançant modal implementada.
+
+- S'ha afegit la possibilitat d'exportar tasques en format JSON.
+
+- S'ha afegit la importació de tasques mitjançant un fixer JSON.
+
+- Validació de fitxer JSON segons el format de tasques utilitzat a l'aplicació per evitar l'importació de dades que no coincideixen amb el model a seguir del que s'emmagatzema a `localStorage` i que trenquen el bon funcionament de l'aplicació.
+
+- Renderitzat condicional per al botó d'exportar tasques. Només serà visible quan hi hagin tasques emmagatzemades a `localStorage.`

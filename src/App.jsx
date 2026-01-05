@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import Card from "./components/Card";
 import Form from "./components/Form";
 import Button from "./components/Button";
@@ -11,29 +9,9 @@ import RadioButton from "./components/RadioButton";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 import Tasklist from "./components/Tasklist";
+import Modal from "./components/Modal";
 import { TASK_SEED } from "./seeders/task_seed";
-
-/*==== CONSTANTS GLOBALS ====*/
-const CATEGORIES = [
-  { id: 1, nom: "Personal" },
-  { id: 2, nom: "Casa" },
-  { id: 3, nom: "Feina" },
-  { id: 4, nom: "Estudis" },
-];
-
-const PRIORITATS_BASE = [
-  { id: 1, nom: "Baixa" },
-  { id: 2, nom: "Mitjana" },
-  { id: 3, nom: "Alta" },
-];
-
-const PRIORITATS = PRIORITATS_BASE.map((p) => ({
-  ...p,
-  htmlId: `taskPriority-${p.nom.toLowerCase()}`,
-  value: p.nom.toLowerCase(),
-}));
-
-const TASKS_KEY = "tasks"; // Array de tasques de localStorage
+import { CATEGORIES, PRIORITATS, TASKS_KEY } from "./constants/index";
 
 function App() {
   /*====CARREGAR TASQUES====*/
@@ -44,6 +22,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
   }, [tasks]);
+
+  /*====ESTAT DEL MODAL D'ELIMINACIÓ====*/
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  /*====ESTAT DE LA TASCA A ELIMINAR====*/
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
   /*====FUNCIONS====*/
   /**
@@ -60,6 +44,11 @@ function App() {
     setTasks((prev) => [...prev, newTask]);
   };
 
+  const askDeleteTask = (target) => {
+    setTaskToDelete(target);
+    setShowDeleteModal(true);
+  };
+
   /**
    * Esborra una tasca concreta del llistat. S'ha de passar com a paràmetre a un component Tasklist.jsx i dins d'aquest a un component Button.jsx
    * @param {*} target
@@ -67,6 +56,8 @@ function App() {
   const deleteTask = (target) => {
     // Selecciona només les tasques on la id no sigui la mateixa que es passa com a target.
     setTasks((prevTasks) => prevTasks.filter((task) => task.taskId !== target));
+    setTaskToDelete(null);
+    setShowDeleteModal(false);
   };
 
   /**
@@ -122,6 +113,106 @@ function App() {
     TASK_SEED.some((seed) => seed.taskId === task.taskId)
   );
 
+  /**
+   * Exporta una tasca concreta a un fitxer JSON.
+   * @param {*} target
+   * @returns
+   */
+  const exportTask = (target) => {
+    const tasks = JSON.parse(localStorage.getItem(TASKS_KEY));
+    const targetTask = tasks.find((task) => task.taskId === target);
+    if (!targetTask) return; // Si no troba la tasca surt i no s'executa.
+
+    const dataStr = JSON.stringify(targetTask, null, 2);
+    // Crea un fitxer en memòria tipus Blob que desa text pla, en aquest cas la tasca en format JSON.
+    const tempFile = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(tempFile); // URL temporal.
+
+    // Simula la descarrega creant un element "a".
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `task-${target}.json`;
+    link.click();
+
+    URL.revokeObjectURL(url); // Esborra la URL temporal.
+  };
+
+  /**
+   * Exporta totes les tasques a un fitxer JSON.
+   */
+  const exportAllTasks = () => {
+    const dataStr = JSON.stringify(
+      JSON.parse(localStorage.getItem(TASKS_KEY)),
+      null,
+      2
+    );
+    const tempFile = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(tempFile);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `tasks.json`;
+    link.click();
+
+    URL.revokeObjectURL(url);
+  };
+
+  /**
+   * Importa tasques des de un fitxer JSON.
+   * Permet fitxers amb una sola tasca o amb mútilples tasques.
+   * @param {*} file
+   * @returns
+   */
+  const importJSON = (file) => {
+    if (!file) return; // Si no existeix el fitxer no s'executa.
+
+    file.text().then((text) => {
+      // S'agafa el text del fitxer i es converteix a JSON
+      try {
+        const data = JSON.parse(text);
+        // Es mira si és un array i si no ho és afegeix el JSON a un array.
+        const importedTasks = Array.isArray(data) ? data : [data];
+        const validTasks = importedTasks.filter(isValidTask); // Filtra les tasques segons el format que tenim al Zod Schema i a localStorage.
+
+        if (validTasks.length < 1) {
+          alert("El JSON introduït no és vàlid!");
+          return;
+        }
+
+        /* 
+          Es canvia l'estat de les tasques de localStorage 
+           i es comprova que en l'estat previ a afegir les
+           tasques no hi ha duplicitat per id.
+        */
+        setTasks((prev) => [
+          ...prev,
+          ...importedTasks.filter(
+            (t) => !prev.some((task) => task.taskId === t.taskId)
+          ),
+        ]);
+      } catch {
+        // Si falla s'informa a l'usuari mitjançant un alert.
+        alert("El JSON introduït no és vàlid!");
+      }
+    });
+  };
+
+  /**
+   * Comprova que les tasques del JSON segueixin el mateix
+   * format indicat al Zod Schema i que es desa a localStorage.
+   * @param {*} task
+   * @returns
+   */
+  const isValidTask = (task) => {
+    return (
+      typeof task === "object" &&
+      typeof task.taskId === "number" &&
+      typeof task.taskName === "string" &&
+      typeof task.taskCategory === "string" &&
+      typeof task.completed === "boolean"
+    );
+  };
+
   return (
     <>
       <div className="container mt-5">
@@ -159,7 +250,43 @@ function App() {
               <i className="fa-solid fa-xmark"></i> Esborrar dades de prova
             </Button>
           )}
+
+          {tasks.length > 0 && (
+            <Button
+              bootstrap="btn btn-warning me-2 mb-2"
+              type="button"
+              action={exportAllTasks}
+            >
+              <i className="fa-solid fa-download"></i> Exportar tasques a JSON
+            </Button>
+          )}
+
+          <Button
+            bootstrap="btn btn-success me-2 mb-2"
+            type="button"
+            dtoggle="collapse"
+            dtarget="#importJSONCard"
+          >
+            <i className="fa-solid fa-circle-plus"></i> Importar tasques a
+            partir de fitxer JSON
+          </Button>
         </div>
+
+        <Card
+          headerText="Importar tasques a partir de fitxer JSON"
+          id="importJSONCard"
+        >
+          {/*Utilitzem un input genèric d'HTML en comptes del nostre
+          component. Això és perquè és més senzill treballar amb fitxers
+          JSON sense dependre de react-hook-form.
+          
+          De forma similar passa amb les checkbox de Tasklist.jsx*/}
+          <input
+            type="file"
+            accept=".json"
+            onChange={(e) => importJSON(e.target.files[0])} // <--- e.target.files[0] === Fitxer pujat a l'input.
+          />
+        </Card>
 
         <Card headerText="Crear tasca" id="formCard">
           <Form
@@ -281,13 +408,25 @@ function App() {
               <tbody>
                 <Tasklist
                   content={tasks}
-                  onDelete={deleteTask}
+                  onDelete={askDeleteTask}
                   onMark={markTask}
+                  onExport={exportTask}
                 ></Tasklist>
               </tbody>
             </table>
           </div>
         </div>
+
+        <Modal
+          show={showDeleteModal}
+          title="Eliminar tasca"
+          bodytext="Confirma l'eliminació de la tasca. Aquesta acció és irreversible!"
+          toggleShow={setShowDeleteModal}
+          submitButtonText="Eliminar tasca"
+          submitButtonBootstrap="btn btn-danger"
+          target={taskToDelete}
+          action={deleteTask}
+        ></Modal>
       </div>
     </>
   );
