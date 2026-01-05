@@ -173,8 +173,8 @@ function App() {
         // Es mira si és un array i si no ho és afegeix el JSON a un array.
         const importedTasks = Array.isArray(data) ? data : [data];
         const validTasks = importedTasks.filter(isValidTask); // Filtra les tasques segons el format que tenim al Zod Schema i a localStorage.
-        
-        if(validTasks.length < 1) {
+
+        if (validTasks.length < 1) {
           alert("El JSON introduït no és vàlid!");
           return;
         }
@@ -200,8 +200,8 @@ function App() {
   /**
    * Comprova que les tasques del JSON segueixin el mateix
    * format indicat al Zod Schema i que es desa a localStorage.
-   * @param {*} task 
-   * @returns 
+   * @param {*} task
+   * @returns
    */
   const isValidTask = (task) => {
     return (
@@ -251,13 +251,15 @@ function App() {
             </Button>
           )}
 
-          <Button
-            bootstrap="btn btn-warning me-2 mb-2"
-            type="button"
-            action={exportAllTasks}
-          >
-            <i className="fa-solid fa-download"></i> Exportar tasques a JSON
-          </Button>
+          {tasks.length > 0 && (
+            <Button
+              bootstrap="btn btn-warning me-2 mb-2"
+              type="button"
+              action={exportAllTasks}
+            >
+              <i className="fa-solid fa-download"></i> Exportar tasques a JSON
+            </Button>
+          )}
 
           <Button
             bootstrap="btn btn-success me-2 mb-2"
