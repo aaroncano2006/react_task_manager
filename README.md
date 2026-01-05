@@ -223,3 +223,19 @@ Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `
 - Classes de bootstrap modificades als botons de **`App.jsx`** per fer el disseny més responsive.
 
 - Taula amb llistat de tasques compatible amb disseny responsive.
+
+`05/01/2025 (dev05012026):`
+
+- S'ha eliminat el paràmetre `target` de **`Button.jsx`** i ara `children` dins del mateix component pot ser null.
+
+- Constants globals relocalitzades a `src/constants/index.js`.
+
+- Nou component **`Modal.jsx`** i confirmació d'eliminació mitjançant modal implementada.
+
+- S'ha afegit la possibilitat d'exportar tasques en format JSON.
+
+- S'ha afegit la importació de tasques mitjançant un fixer JSON.
+
+- Validació de fitxer JSON segons el format de tasques utilitzat a l'aplicació per evitar l'importació de dades que no coincideixen amb el model a seguir del que s'emmagatzema a `localStorage` i que trenquen el bon funcionament de l'aplicació.
+
+- Renderitzat condicional per al botó d'exportar tasques. Només serà visible quan hi hagin tasques emmagatzemades a `localStorage.`
