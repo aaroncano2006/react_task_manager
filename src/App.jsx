@@ -115,17 +115,17 @@ function App() {
 
   /**
    * Exporta una tasca concreta a un fitxer JSON.
-   * @param {*} target 
-   * @returns 
+   * @param {*} target
+   * @returns
    */
   const exportTask = (target) => {
     const tasks = JSON.parse(localStorage.getItem(TASKS_KEY));
     const targetTask = tasks.find((task) => task.taskId === target);
     if (!targetTask) return; // Si no troba la tasca surt i no s'executa.
 
-    const dataStr = JSON.stringify(targetTask);
+    const dataStr = JSON.stringify(targetTask, null, 2);
     // Crea un fitxer en memòria tipus Blob que desa text pla, en aquest cas la tasca en format JSON.
-    const tempFile = new Blob([dataStr], { type: "application/json" }); 
+    const tempFile = new Blob([dataStr], { type: "application/json" });
     const url = URL.createObjectURL(tempFile); // URL temporal.
 
     // Simula la descarrega creant un element "a".
@@ -141,7 +141,7 @@ function App() {
    * Exporta totes les tasques a un fitxer JSON.
    */
   const exportAllTasks = () => {
-    const dataStr = JSON.stringify(localStorage.getItem(TASKS_KEY));
+    const dataStr = JSON.stringify(JSON.parse(localStorage.getItem(TASKS_KEY)), null, 2);
     const tempFile = new Blob([dataStr], { type: "application/json" });
     const url = URL.createObjectURL(tempFile);
 
@@ -151,7 +151,39 @@ function App() {
     link.click();
 
     URL.revokeObjectURL(url);
-  }
+  };
+
+  /**
+   * Importa tasques des de un fitxer JSON. 
+   * Permet fitxers amb una sola tasca o amb mútilples tasques.
+   * @param {*} file 
+   * @returns 
+   */
+  const importJSON = (file) => {
+    if (!file) return; // Si no existeix el fitxer no s'executa.
+
+    file.text().then((text) => { // S'agafa el text del fitxer i es converteix a JSON
+      try {
+        const data = JSON.parse(text);
+        // Es mira si és un array i si no ho és afegeix el JSON a un array.
+        const importedTasks = Array.isArray(data) ? data : [data]; 
+
+        /* 
+          Es canvia l'estat de les tasques de localStorage 
+           i es comprova que en l'estat previ a afegir les
+           tasques no hi ha duplicitat per id.
+        */
+        setTasks((prev) => [
+          ...prev,
+          ...importedTasks.filter(
+            (t) => !prev.some((task) => task.taskId === t.taskId)
+          ),
+        ]);
+      } catch { // Si falla s'informa a l'usuari mitjançant un alert.
+        alert("El JSON introduït no és vàlid!");
+      }
+    });
+  };
 
   return (
     <>
@@ -192,13 +224,39 @@ function App() {
           )}
 
           <Button
-              bootstrap="btn btn-warning me-2 mb-2"
-              type="button"
-              action={exportAllTasks}
-            >
-              <i className="fa-solid fa-download"></i> Exportar tasques a JSON
-            </Button>
+            bootstrap="btn btn-warning me-2 mb-2"
+            type="button"
+            action={exportAllTasks}
+          >
+            <i className="fa-solid fa-download"></i> Exportar tasques a JSON
+          </Button>
+
+          <Button
+            bootstrap="btn btn-success me-2 mb-2"
+            type="button"
+            dtoggle="collapse"
+            dtarget="#importJSONCard"
+          >
+            <i className="fa-solid fa-circle-plus"></i> Importar tasques a
+            partir de fitxer JSON
+          </Button>
         </div>
+
+        <Card
+          headerText="Importar tasques a partir de fitxer JSON"
+          id="importJSONCard"
+        >
+          {/*Utilitzem un input genèric d'HTML en comptes del nostre
+          component. Això és perquè és més senzill treballar amb fitxers
+          JSON sense dependre de react-hook-form.
+          
+          De forma similar passa amb les checkbox de Tasklist.jsx*/}
+           <input
+            type="file"
+            accept=".json"
+            onChange={(e) => importJSON(e.target.files[0])} // <--- e.target.files[0] === Fitxer pujat a l'input.
+          />
+        </Card>
 
         <Card headerText="Crear tasca" id="formCard">
           <Form
