@@ -141,7 +141,11 @@ function App() {
    * Exporta totes les tasques a un fitxer JSON.
    */
   const exportAllTasks = () => {
-    const dataStr = JSON.stringify(JSON.parse(localStorage.getItem(TASKS_KEY)), null, 2);
+    const dataStr = JSON.stringify(
+      JSON.parse(localStorage.getItem(TASKS_KEY)),
+      null,
+      2
+    );
     const tempFile = new Blob([dataStr], { type: "application/json" });
     const url = URL.createObjectURL(tempFile);
 
@@ -154,19 +158,26 @@ function App() {
   };
 
   /**
-   * Importa tasques des de un fitxer JSON. 
+   * Importa tasques des de un fitxer JSON.
    * Permet fitxers amb una sola tasca o amb mútilples tasques.
-   * @param {*} file 
-   * @returns 
+   * @param {*} file
+   * @returns
    */
   const importJSON = (file) => {
     if (!file) return; // Si no existeix el fitxer no s'executa.
 
-    file.text().then((text) => { // S'agafa el text del fitxer i es converteix a JSON
+    file.text().then((text) => {
+      // S'agafa el text del fitxer i es converteix a JSON
       try {
         const data = JSON.parse(text);
         // Es mira si és un array i si no ho és afegeix el JSON a un array.
-        const importedTasks = Array.isArray(data) ? data : [data]; 
+        const importedTasks = Array.isArray(data) ? data : [data];
+        const validTasks = importedTasks.filter(isValidTask); // Filtra les tasques segons el format que tenim al Zod Schema i a localStorage.
+        
+        if(validTasks.length < 1) {
+          alert("El JSON introduït no és vàlid!");
+          return;
+        }
 
         /* 
           Es canvia l'estat de les tasques de localStorage 
@@ -179,10 +190,27 @@ function App() {
             (t) => !prev.some((task) => task.taskId === t.taskId)
           ),
         ]);
-      } catch { // Si falla s'informa a l'usuari mitjançant un alert.
+      } catch {
+        // Si falla s'informa a l'usuari mitjançant un alert.
         alert("El JSON introduït no és vàlid!");
       }
     });
+  };
+
+  /**
+   * Comprova que les tasques del JSON segueixin el mateix
+   * format indicat al Zod Schema i que es desa a localStorage.
+   * @param {*} task 
+   * @returns 
+   */
+  const isValidTask = (task) => {
+    return (
+      typeof task === "object" &&
+      typeof task.taskId === "number" &&
+      typeof task.taskName === "string" &&
+      typeof task.taskCategory === "string" &&
+      typeof task.completed === "boolean"
+    );
   };
 
   return (
@@ -251,7 +279,7 @@ function App() {
           JSON sense dependre de react-hook-form.
           
           De forma similar passa amb les checkbox de Tasklist.jsx*/}
-           <input
+          <input
             type="file"
             accept=".json"
             onChange={(e) => importJSON(e.target.files[0])} // <--- e.target.files[0] === Fitxer pujat a l'input.
