@@ -11,29 +11,9 @@ import RadioButton from "./components/RadioButton";
 import Input from "./components/Input";
 import Checkbox from "./components/Checkbox";
 import Tasklist from "./components/Tasklist";
+import Modal from "./components/Modal";
 import { TASK_SEED } from "./seeders/task_seed";
-
-/*==== CONSTANTS GLOBALS ====*/
-const CATEGORIES = [
-  { id: 1, nom: "Personal" },
-  { id: 2, nom: "Casa" },
-  { id: 3, nom: "Feina" },
-  { id: 4, nom: "Estudis" },
-];
-
-const PRIORITATS_BASE = [
-  { id: 1, nom: "Baixa" },
-  { id: 2, nom: "Mitjana" },
-  { id: 3, nom: "Alta" },
-];
-
-const PRIORITATS = PRIORITATS_BASE.map((p) => ({
-  ...p,
-  htmlId: `taskPriority-${p.nom.toLowerCase()}`,
-  value: p.nom.toLowerCase(),
-}));
-
-const TASKS_KEY = "tasks"; // Array de tasques de localStorage
+import {CATEGORIES, PRIORITATS, TASKS_KEY} from "./constants/index";
 
 function App() {
   /*====CARREGAR TASQUES====*/
@@ -44,6 +24,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
   }, [tasks]);
+
+  /*====ESTAT DEL MODAL D'ELIMINACIÓ====*/
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  /*====ESTAT DE LA TASCA A ELIMINAR====*/
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
   /*====FUNCIONS====*/
   /**
@@ -60,6 +46,11 @@ function App() {
     setTasks((prev) => [...prev, newTask]);
   };
 
+  const askDeleteTask = (target) => {
+    setTaskToDelete(target);
+    setShowDeleteModal(true);
+  }
+
   /**
    * Esborra una tasca concreta del llistat. S'ha de passar com a paràmetre a un component Tasklist.jsx i dins d'aquest a un component Button.jsx
    * @param {*} target
@@ -67,6 +58,8 @@ function App() {
   const deleteTask = (target) => {
     // Selecciona només les tasques on la id no sigui la mateixa que es passa com a target.
     setTasks((prevTasks) => prevTasks.filter((task) => task.taskId !== target));
+    setTaskToDelete(null);
+    setShowDeleteModal(false);
   };
 
   /**
@@ -281,13 +274,25 @@ function App() {
               <tbody>
                 <Tasklist
                   content={tasks}
-                  onDelete={deleteTask}
+                  onDelete={askDeleteTask}
                   onMark={markTask}
                 ></Tasklist>
               </tbody>
             </table>
           </div>
         </div>
+
+        <Modal
+          show={showDeleteModal}
+          title="Eliminar tasca"
+          bodytext="Confirma l'eliminació de la tasca. Aquesta acció és irreversible!"
+          toggleShow={setShowDeleteModal}
+          submitButtonText="Eliminar tasca"
+          submitButtonBootstrap="btn btn-danger"
+          target={taskToDelete}
+          action={deleteTask}
+        >
+        </Modal>
       </div>
     </>
   );
