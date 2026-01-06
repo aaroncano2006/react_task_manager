@@ -177,19 +177,19 @@ Pressionant el botó blau amb el text `Afegir nova tasca` es desplegarà un form
 - Marcar com a important (opcional) (En el llistat es marcarà amb una icona semblant a aquesta )
 - Descripció (Màxim 300 caràcters) (opcional)
 
-![Formulari de crear tasca desplegable](readme_src/gifs/01.GIF)
+![Formulari de crear tasca desplegable](readme_src/gifs/01.gif)
 
 Si enviem dades erronees o ens deixem dades obligatòries serem informats amb missatges d'error dinàmics.
 
-![Errors dinàmics al formulari](readme_src/gifs/02.GIF)
+![Errors dinàmics al formulari](readme_src/gifs/02.gif)
 
 Si totes les dades són correctes, s'afegirà al llistat:
 
-![Tasca afegida correctament al llistat](readme_src/gifs/03.GIF)
+![Tasca afegida correctament al llistat](readme_src/gifs/03.gif)
 
 Per testejar el funcionament de l'aplicació i com funcionen i es llisten les tasques tenim l'opció de **Carregar dades de prova**, que mostra exemples de com es veurien tasques reals dins d'aquest gestor de tasques:
 
-![Carregar dades de prova](readme_src/gifs/04.GIF)
+![Carregar dades de prova](readme_src/gifs/04.gif)
 
 Les tasques introduïdes es desen al navegador web utilitzat, per tant persistiran encara que es tanqui la finestra o tot el navegador.
 
@@ -199,7 +199,7 @@ Per exportar les teves tasques introduïdes i desades al navegador simplement pr
 
 Cliquem al botó i s'ens descarregarà un fitxer JSON amb totes les tasques introduïdes que podrem importar en qualsevol moment:
 
-![Exportar tasques en un fitxer JSON](readme_src/gifs/05.GIF)
+![Exportar tasques en un fitxer JSON](readme_src/gifs/05.gif)
 
 També pots exportar tasques individualment amb el botó groc amb l'icona de descàrrega en la columna d'accions.
 
@@ -207,7 +207,7 @@ També pots exportar tasques individualment amb el botó groc amb l'icona de des
 
 Per importar el fitxer JSON (per exemple en un altre navegador) ens dirigim al botó verd amb el text **Importar tasques a partir de fitxer JSON**, es deplegarà un formulari simple on podrem adjuntar el fitxer JSON i totes les tasques s'afegiran al llistat:
 
-![Importar tasques a partir d'un fitxer JSON](readme_src/gifs/06.GIF)
+![Importar tasques a partir d'un fitxer JSON](readme_src/gifs/06.gif)
 
 **NOTA**: És important que les tasques dins del fitxer JSON segueixin el següent format en cas de que es vulguin importar tasques creades fora de l'aplicació, del contrari, el fitxer no serà acceptat:
 
@@ -230,13 +230,13 @@ També és vàlid si els mateixos camps estàn en diferent ordre i es recomana n
 
 Per marcar una tasca com a complerta o desmarcar-la simplement hem de marcar la checkbox corresponent a la tasca que volem indicar si ha estat complerta o no, l'estat de la tasca canviarà en funció del seu estat previ:
 
-![Importar tasques a partir d'un fitxer JSON](readme_src/gifs/07.GIF)
+![Importar tasques a partir d'un fitxer JSON](readme_src/gifs/07.gif)
 
 ### 🚮 Eliminar tasca
 
 Per eliminar una tasca del llistat simplement hem de clicar al botó amb icono de paperera corresponent a la tasca i ens mostrarà un modal advertint-nos de que aquesta acció és irreversible, si acceptem, la tasca s'haurà eliminat amb éxit.
 
-![Eliminar tasca](readme_src/gifs/08.GIF)
+![Eliminar tasca](readme_src/gifs/08.gif)
 
 ---
 
