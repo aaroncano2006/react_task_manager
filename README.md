@@ -58,6 +58,7 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 
 - **[Node JS 22.21.1](https://nodejs.org/en/download)**
 - **[Git](https://git-scm.com/install/)**
+- **[Docker Engine (si es vol utilitzar des de un contenidor)](https://docs.docker.com/engine/install/)**
 
 **Nota**: És possible que si treballes des de una distribució Linux ja tinguis Git instal·lat, pots comprovar-ho amb la següent comanda:
 
@@ -70,7 +71,7 @@ La sortida hauria de ser similar a la següent:
 git version 2.43.0
 ```
 
-## ⚙️ Instal·lació
+## ⚙️ Instal·lació (local)
 
 Després d'haver instal·lat NodeJS i Git obrim un terminal (o si estàs des de Windows l'aplicació **Git Bash**) i clonem el repositori:
 
@@ -94,6 +95,24 @@ npm run dev
 Accedim a la URL que ens doni la sortida i ja estarem dins de l'aplicació:
 
 ![React Task Manager](readme_src/imgs/01.png)
+
+## 🐳 Instal·lació (Docker)
+
+Si volem executar l'aplicació des de un contenidor Docker el primer que farem serà crear la imatge a partir del `Dockerfile` pujat al repositori:
+
+```bash
+docker build -t aaroncano_react_taskmanager .
+```
+
+Posem en marxa el contenidor amb la següent comanda:
+
+```bash
+docker run -dp 8080:80 aaroncano_react_taskmanager
+```
+
+Això exposarà el port 80 del contenidor en el port 8080 de la nostra màquina, per tant accedirem a l'aplicació des de `localhost:8080`:
+
+![Aplicació servida des del contenidor Docker](readme_src/imgs/02.png)
 
 ## 📃 Changelog
 
@@ -273,3 +292,7 @@ Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `
 - Validació de fitxer JSON segons el format de tasques utilitzat a l'aplicació per evitar l'importació de dades que no coincideixen amb el model a seguir del que s'emmagatzema a `localStorage` i que trenquen el bon funcionament de l'aplicació.
 
 - Renderitzat condicional per al botó d'exportar tasques. Només serà visible quan hi hagin tasques emmagatzemades a `localStorage.`
+
+`06/01/2026 (main)`:
+
+- Dockerfile i configuració de Nginx per servir l'aplicació des de un contenidor.
