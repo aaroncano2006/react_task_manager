@@ -1,14 +1,36 @@
 # ⚛️ React Task Manager
 
+## 📑 Índex
+
+- [🎯 Objectiu del projecte](#-objectiu-del-projecte)
+- [🛠️ Tech stack (Tecnologies utilitzades)](#️-tech-stack-tecnologies-utilitzades)
+- [📁 Estructura del projecte](#-estructura-del-projecte)
+- [👀 Requisits previs](#-requisits-previs)
+- [⚙️ Instal·lació (local)](#️-installació-local)
+- [🐳 Instal·lació (Docker)](#-installació-docker)
+- [⏩ Funcionalitats](#-funcionalitats)
+  - [➕ Afegir tasques](#-afegir-tasques)
+  - [📤 Exportar tasques](#-exportar-tasques)
+  - [📥 Importar tasques](#-importar-tasques)
+  - [✔️ Marcar i desmarcar tasca](#️-marcar-i-desmarcar-tasca)
+  - [🚮 Eliminar tasca](#-eliminar-tasca)
+- [📃 Changelog (Bitàcora)](#-changelog-bitácora)
+
+---
+
 ## 🎯 Objectiu del projecte
 
 Aquest projecte consisteix en crear un gestor de tasques amb React que permeti realitzar les següents operacions:
 
 - **Crear tasques**
 - **Emmagatzemar les tasques al navegador web (utilitzant localStorage)**
+- **Carregar dades de prova**
 - **Llistar totes les tasques creades**
 - **Marcar i desmarcar tasques**
 - **Eliminar les tasques**
+- **Exportar i importar tasques a JSON**
+
+---
 
 ## 🛠️ Tech stack (Tecnologies utilitzades)
 
@@ -17,42 +39,58 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - **Icones**: [Font Awesome](https://fontawesome.com/)
 - **Gestió de formularis**: React Hook Form
 - **Validacions**: Zod
+- **Contenidor**: Docker
+- **Imatge Docker**: [Node:22 Alpine](https://hub.docker.com/layers/library/node/22-alpine/images/sha256-3a4802e64ab5181c7870d6ddd8c824c2efc42873baae37d1971451668659483b)
+- **Servidor web per a Docker**: Nginx
 
+---
 
 ## 📁 Estructura del projecte
 
 ```
 /
-├── dist
-├── node_modules
-├── public
-├── src
-│   ├── assets
-│   │   └── react.svg
-│   ├── components
+├── public/
+├── readme_src/
+├── src/
+│   ├── assets/
+│   ├── components/
 │   │   ├── Button.jsx
+│   │   ├── Card.jsx
+│   │   ├── Checkbox.jsx
 │   │   ├── Form.jsx
 │   │   ├── Input.jsx
-│   │   ├── Link.jsx
+│   │   ├── Modal.jsx
+│   │   ├── RadioButton.jsx
+│   │   ├── RadioGroup.jsx
 │   │   ├── Select.jsx
+│   │   ├── Tasklist.jsx
 │   │   └── Textarea.jsx
-│   ├── schemas
+│   ├── constants/
+│   │   └── index.js
+│   ├── schemas/
 │   │   └── task.js
-│   ├── styles
+│   ├── seeders/
+│   │   └── task_seed.js
+│   ├── styles/
 │   │   └── App.css
-│   ├── views
-│   │   └── form.html
 │   ├── App.jsx
 │   └── main.jsx
+├── .dockerignore
 ├── .gitignore
+├── Dockerfile
 ├── eslint.config.js
 ├── index.html
+├── nginx.conf
 ├── package-lock.json
 ├── package.json
 ├── README.md
-├── T2_Pt1_GestorTasques_Enun...
+├── T2_Pt1_GestorTasques_Enunciat.md
 └── vite.config.js
 ```
+
+**Nota**: En el projecte del repositori falten directoris com per exemple `node_modules`, essencials per al funcionament de l'aplicació, més endavant seguint els passos de la instal·lació es poden restaurar.
+
+---
 
 ## 👀 Requisits previs
 
@@ -65,11 +103,14 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 ```bash
 git --version
 ```
+
 La sortida hauria de ser similar a la següent:
 
 ```bash
 git version 2.43.0
 ```
+
+---
 
 ## ⚙️ Instal·lació (local)
 
@@ -77,6 +118,11 @@ Després d'haver instal·lat NodeJS i Git obrim un terminal (o si estàs des de 
 
 ```bash
 git clone https://github.com/aaroncano2006/react_task_manager.git
+```
+O també amb la teva clau SSH:
+
+```bash
+git clone git@github.com:aaroncano2006/react_task_manager.git
 ```
 
 En situem dins del directori i reconstruïm els mòduls de Node, necessaris per al funcionament de l'aplicació:
@@ -96,9 +142,11 @@ Accedim a la URL que ens doni la sortida i ja estarem dins de l'aplicació:
 
 ![React Task Manager](readme_src/imgs/01.png)
 
+---
+
 ## 🐳 Instal·lació (Docker)
 
-Si volem executar l'aplicació des de un contenidor Docker el primer que farem serà crear la imatge a partir del `Dockerfile` pujat al repositori:
+Després de clonar el repositori, si volem executar l'aplicació des de un contenidor Docker el primer que farem serà crear la imatge a partir del `Dockerfile` pujat al repositori:
 
 ```bash
 docker build -t aaroncano_react_taskmanager .
@@ -114,7 +162,85 @@ Això exposarà el port 80 del contenidor en el port 8080 de la nostra màquina,
 
 ![Aplicació servida des del contenidor Docker](readme_src/imgs/02.png)
 
-## 📃 Changelog
+---
+
+## ⏩ Funcionalitats
+
+### ➕ Afegir tasques
+
+Pressionant el botó blau amb el text `Afegir nova tasca` es desplegarà un formulari amb els següents camps a omplir i amb requisits que han d'omplir:
+
+- Nom de la tasca (Mínim 5 caràcters)
+- Categoria (Personal, Casa, Feina, Estudis) (Només una d'aquestes categories predefinides)
+- Data límit (Format DD/MM/YYYY que ja es converteix a l'enviar el formulari i com a mínim ha de ser el dia següent de l'actual)
+- Prioritat (Alta, Mitjana, Baixa) (Només una d'aquestes prioritats predefinides)
+- Marcar com a important (opcional) (En el llistat es marcarà amb una icona semblant a aquesta )
+- Descripció (Màxim 300 caràcters) (opcional)
+
+![Formulari de crear tasca desplegable](readme_src/gifs/01.GIF)
+
+Si enviem dades erronees o ens deixem dades obligatòries serem informats amb missatges d'error dinàmics.
+
+![Errors dinàmics al formulari](readme_src/gifs/02.GIF)
+
+Si totes les dades són correctes, s'afegirà al llistat:
+
+![Tasca afegida correctament al llistat](readme_src/gifs/03.GIF)
+
+Per testejar el funcionament de l'aplicació i com funcionen i es llisten les tasques tenim l'opció de **Carregar dades de prova**, que mostra exemples de com es veurien tasques reals dins d'aquest gestor de tasques:
+
+![Carregar dades de prova](readme_src/gifs/04.GIF)
+
+Les tasques introduïdes es desen al navegador web utilitzat, per tant persistiran encara que es tanqui la finestra o tot el navegador.
+
+### 📤 Exportar tasques
+
+Per exportar les teves tasques introduïdes i desades al navegador simplement pressionem el botó groc amb el text **Exportar tasques a JSON**, visible sempre que hi hagi al menys una tasca creada.
+
+Cliquem al botó i s'ens descarregarà un fitxer JSON amb totes les tasques introduïdes que podrem importar en qualsevol moment:
+
+![Exportar tasques en un fitxer JSON](readme_src/gifs/05.GIF)
+
+També pots exportar tasques individualment amb el botó groc amb l'icona de descàrrega en la columna d'accions.
+
+### 📥 Importar tasques
+
+Per importar el fitxer JSON (per exemple en un altre navegador) ens dirigim al botó verd amb el text **Importar tasques a partir de fitxer JSON**, es deplegarà un formulari simple on podrem adjuntar el fitxer JSON i totes les tasques s'afegiran al llistat:
+
+![Importar tasques a partir d'un fitxer JSON](readme_src/gifs/06.GIF)
+
+**NOTA**: És important que les tasques dins del fitxer JSON segueixin el següent format en cas de que es vulguin importar tasques creades fora de l'aplicació, del contrari, el fitxer no serà acceptat:
+
+```json
+{
+  "taskName": "tester",
+  "taskCategory": "Casa",
+  "taskDueDate": "07/01/2026",
+  "taskPriority": "mitjana",
+  "taskImportant": true,
+  "taskDescription": "Prova d'introducció de tasca correcte.",
+  "taskId": 1767730652920,
+  "completed": false
+}
+```
+
+També és vàlid si els mateixos camps estàn en diferent ordre i es recomana no utilitzar com a ID els números del 1 al 4 ja que són les tasques de prova.
+
+### ✔️ Marcar i desmarcar tasca
+
+Per marcar una tasca com a complerta o desmarcar-la simplement hem de marcar la checkbox corresponent a la tasca que volem indicar si ha estat complerta o no, l'estat de la tasca canviarà en funció del seu estat previ:
+
+![Importar tasques a partir d'un fitxer JSON](readme_src/gifs/07.GIF)
+
+### 🚮 Eliminar tasca
+
+Per eliminar una tasca del llistat simplement hem de clicar al botó amb icono de paperera corresponent a la tasca i ens mostrarà un modal advertint-nos de que aquesta acció és irreversible, si acceptem, la tasca s'haurà eliminat amb éxit.
+
+![Eliminar tasca](readme_src/gifs/08.GIF)
+
+---
+
+## 📃 Changelog (Bitàcora)
 
 `11/12/2025:` **Commit inicial**:
 
@@ -136,7 +262,7 @@ Això exposarà el port 80 del contenidor en el port 8080 de la nostra màquina,
 
 ** A partir dels següents dies es realitzaran diferents branques pel desenvolupament, d'aquesta forma podrem controlar millor quins canvis es realitzen en un dia determinat i tindrem menys risc de trencar el funcionament de la branca **`main`**. Una vegada acabi el dia i es comprovi que els canvis funcionen, realitzarem **`Pull Request`** i tindrem la branca **`main`** actualitzada **
 
-`16/12/2025 (dev16122025)`: 
+`16/12/2025 (dev16122025)`:
 
 - Eliminat component **Link**.
 
@@ -236,8 +362,8 @@ Això exposarà el port 80 del contenidor en el port 8080 de la nostra màquina,
 
 - Afegits atributs `target` i `action` a **`Button.jsx`** per poder manipular funcions que afecten a elements del DOM.
 
-- Eliminació de tasques implementada. S'ha afegit l'atribut `data-set` als `<tr>` de **`Tasklist.jsx`** i la funció `deleteTask`. 
-Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `deleteTask`, automàticament l'event de clicar el botó serà la funció apuntant a la fila que correspon amb la id de la tasca.
+- Eliminació de tasques implementada. S'ha afegit l'atribut `data-set` als `<tr>` de **`Tasklist.jsx`** i la funció `deleteTask`.
+  Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `deleteTask`, automàticament l'event de clicar el botó serà la funció apuntant a la fila que correspon amb la id de la tasca.
 
 - Per defecte `completed` no s'enviarà amb `defaultValue` per evitar que el seu valor sigui `true`.
 
@@ -296,3 +422,14 @@ Es passa com a valor de `target` al botó d'eliminar `taskId` i com a `action` `
 `06/01/2026 (main)`:
 
 - Dockerfile i configuració de Nginx per servir l'aplicació des de un contenidor.
+
+- S'ha afegit una label indicant on es troba la prioritat al formulari.
+
+- Documentació de l'aplicació finalitzada a `README.md`
+
+---
+
+### 👤 Autor
+**Aarón Cano Fernández (rxnwashere)**  
+💻 2n DAW \
+📚 Institut Carles Vallbona
