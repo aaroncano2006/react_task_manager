@@ -342,6 +342,7 @@ function App() {
 
             <div className="row mb-3">
               <div className="col-10">
+                <label className="form-label">Prioritat</label>
                 <RadioGroup>
                   {PRIORITATS.map((p) => {
                     return (
