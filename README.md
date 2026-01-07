@@ -14,7 +14,7 @@
   - [📥 Importar tasques](#-importar-tasques)
   - [✔️ Marcar i desmarcar tasca](#️-marcar-i-desmarcar-tasca)
   - [🚮 Eliminar tasca](#-eliminar-tasca)
-- [📃 Changelog (Bitàcola)](#-changelog-bitácola)
+- [📃 Changelog (Bitàcola)](#-changelog-bitàcola)
 
 ---
 
