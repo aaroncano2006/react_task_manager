@@ -14,7 +14,7 @@
   - [📥 Importar tasques](#-importar-tasques)
   - [✔️ Marcar i desmarcar tasca](#️-marcar-i-desmarcar-tasca)
   - [🚮 Eliminar tasca](#-eliminar-tasca)
-- [📃 Changelog (Bitàcora)](#-changelog-bitácora)
+- [📃 Changelog (Bitàcola)](#-changelog-bitácola)
 
 ---
 
@@ -240,7 +240,7 @@ Per eliminar una tasca del llistat simplement hem de clicar al botó amb icono d
 
 ---
 
-## 📃 Changelog (Bitàcora)
+## 📃 Changelog (Bitàcola)
 
 `11/12/2025:` **Commit inicial**:
 
