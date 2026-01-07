@@ -40,7 +40,7 @@ Aquest projecte consisteix en crear un gestor de tasques amb React que permeti r
 - **Gestió de formularis**: React Hook Form
 - **Validacions**: Zod
 - **Contenidor**: Docker
-- **Imatge Docker**: [Node:22 Alpine](https://hub.docker.com/layers/library/node/22-alpine/images/sha256-3a4802e64ab5181c7870d6ddd8c824c2efc42873baae37d1971451668659483b)
+- **Imatge Docker**: [Node:22 Alpine](https://hub.docker.com/layers/library/node/22-alpine/images/sha256-3a4802e64ab5181c7870d6ddd8c824c2efc42873baae37d1971451668659483b) i [Nginx](https://hub.docker.com/_/nginx)
 - **Servidor web per a Docker**: Nginx
 
 ---
