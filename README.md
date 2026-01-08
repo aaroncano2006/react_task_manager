@@ -430,6 +430,6 @@ Per eliminar una tasca del llistat simplement hem de clicar al botó amb icono d
 ---
 
 ### 👤 Autor
-**Aarón Cano Fernández (rxnwashere)**  
+**Aarón Cano Fernández**  
 💻 2n DAW \
 📚 Institut Carles Vallbona
